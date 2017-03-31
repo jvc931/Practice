@@ -1,36 +1,28 @@
 package com.globant.practice;
 
-import com.globant.practice.Presenter.SplashPresenter;
+import com.globant.practice.presenter.SplashPresenter;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.Assert.fail;
 
 /**
+ * Unit test for the methods of the SplashPresenter.
  * Created by jonathan.vargas on 31/03/2017.
  */
 
 public class SplashPresenterTest {
     private SplashPresenter presenter = new SplashPresenter();
 
-    @Test
-    public void isFirstTime_FirstTimeRun_ReturnsTrue() {
-        assertTrue(presenter.isFirstTime());
-    }
-
-    @Test
-    public void detachView_TheViewIsDetach_firstTimeIsFalse() {
-        presenter.detachView();
-        assertFalse(presenter.isFirstTime());
-    }
-
+    /**
+     * Unit test that expect a AssertionError because when the time to change ends
+     * make a call using the view instance and this instance is null.
+     */
     @Test(expected = AssertionError.class)
     public void countTime() {
-        presenter.countTime();
-        fail("The SplashView is null");
+        presenter.timeToWaitForChangeView();
+        fail("The reference of SplashView is null");
         try {
             Thread.sleep(3600);
         } catch (InterruptedException e) {

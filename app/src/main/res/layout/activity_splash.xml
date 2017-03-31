@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.globant.practice.View.Activities.SplashActivity"
+    tools:context="com.globant.practice.view.activities.SplashActivity"
     android:background="@android:color/black">
 
     <TextView
@@ -15,5 +15,5 @@
         android:text="@string/splash_text"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:textSize="34dp"/>
+        android:textSize="@dimen/text_splash_size"/>
 </LinearLayout>
