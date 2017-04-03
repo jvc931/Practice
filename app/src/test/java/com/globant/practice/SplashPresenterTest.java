@@ -1,11 +1,9 @@
 package com.globant.practice;
 
+import com.globant.practice.interfaces.Splash;
 import com.globant.practice.presenter.SplashPresenter;
-
 import org.junit.Test;
-
-
-import static org.junit.Assert.fail;
+import org.mockito.Mockito;
 
 /**
  * Unit test for the methods of the SplashPresenter.
@@ -13,21 +11,29 @@ import static org.junit.Assert.fail;
  */
 
 public class SplashPresenterTest {
+
     private SplashPresenter presenter = new SplashPresenter();
+    Splash mockView = Mockito.mock(Splash.class);
 
     /**
-     * Unit test that expect a AssertionError because when the time to change ends
-     * make a call using the view instance and this instance is null.
+     * Unit test for the timeToWaitForChangeView method.
      */
-    @Test(expected = AssertionError.class)
-    public void countTime() {
+    @Test
+    public void timeToWaitForChangeView_ShouldWaitTheTimeToChangeTheView() {
         presenter.timeToWaitForChangeView();
-        fail("The reference of SplashView is null");
         try {
             Thread.sleep(3600);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Unit Test for the attachView method.
+     */
+    @Test
+    public void attachView_ShouldSaveTheInstanceOfTheInterface() {
+        presenter.attachView(mockView);
     }
 
 }

@@ -6,6 +6,7 @@ package com.globant.practice.interfaces;
  */
 
 public interface Splash {
+
     /**
      * Create and start the intent to change the view to HomeActivity.
      */

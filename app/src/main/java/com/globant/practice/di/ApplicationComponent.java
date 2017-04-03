@@ -1,9 +1,7 @@
 package com.globant.practice.di;
 
 import com.globant.practice.view.activities.SplashActivity;
-
 import javax.inject.Singleton;
-
 import dagger.Component;
 
 /**
@@ -15,6 +13,7 @@ import dagger.Component;
 public interface ApplicationComponent {
     /**
      * Inject method for the SplashActivity instance.
+     *
      * @param activity is the type SplashActivity
      */
     void inject(SplashActivity activity);

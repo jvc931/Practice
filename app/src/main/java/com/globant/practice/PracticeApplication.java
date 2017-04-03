@@ -1,10 +1,8 @@
 package com.globant.practice;
 
 import android.app.Application;
-
 import com.globant.practice.di.ApplicationComponent;
 import com.globant.practice.di.DaggerApplicationComponent;
-
 
 /**
  * Base application for initialize Dagger.
@@ -25,6 +23,7 @@ public class PracticeApplication extends Application {
 
     /**
      * Returns the application component.
+     *
      * @return application component
      */
     public ApplicationComponent getApplicationComponent() {
