@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.globant.practice.PracticeApplication;
-import com.globant.practice.interfaces.Splash;
 import com.globant.practice.presenter.SplashPresenter;
 import com.globant.practice.R;
 import javax.inject.Inject;
@@ -14,7 +13,7 @@ import javax.inject.Inject;
  * with the presenter, implements the interface Splash.
  * Created by jonathan.vargas on 30/03/2017.
  */
-public class SplashActivity extends AppCompatActivity implements Splash {
+public class SplashActivity extends AppCompatActivity implements SplashView {
     @Inject
     SplashPresenter presenter;
 

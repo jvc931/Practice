@@ -1,6 +1,6 @@
 package com.globant.practice.presenter;
 
-import com.globant.practice.interfaces.Splash;
+import com.globant.practice.view.activities.SplashView;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.inject.Inject;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
  */
 
 public class SplashPresenter {
-    private Splash view;
+    private SplashView view;
     private boolean firstTimeThatRun = true;
     private static final int timeToWait = 3500;
     private Timer t;
@@ -28,7 +28,7 @@ public class SplashPresenter {
      *
      * @param splash instance of the view interface
      */
-    public void attachView(Splash splash) {
+    public void attachView(SplashView splash) {
         this.view = splash;
     }
 
@@ -41,10 +41,11 @@ public class SplashPresenter {
             t.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if (verifyIfTheViewExist())
+                    if (isTheViewAttached()) {
                         view.changeView();
-                    else
+                    } else {
                         firstTimeThatRun = true;
+                    }
                 }
             }, timeToWait);
         }
@@ -69,10 +70,11 @@ public class SplashPresenter {
         firstTimeThatRun = true;
     }
 
-    private boolean verifyIfTheViewExist() {
-        if (view != null)
-            return true;
-        else
-            return false;
+    /**
+     * Check if the view is attach for prevent a NullPointerException.
+     * @return True if the view is attach or else if not
+     */
+    private boolean isTheViewAttached() {
+            return view != null;
     }
 }
