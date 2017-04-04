@@ -8,7 +8,7 @@ package com.globant.practice.view.activities;
 public interface SplashView {
 
     /**
-     * Create and start the intent to change the view to HomeActivity.
+     * Creates and starts the intent to change the view to HomeActivity.
      */
     void changeView();
 }

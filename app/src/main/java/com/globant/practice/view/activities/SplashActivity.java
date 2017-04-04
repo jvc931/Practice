@@ -9,7 +9,7 @@ import com.globant.practice.R;
 import javax.inject.Inject;
 
 /**
- * Initialize the components of the activity_splash UI and manage the communication
+ * Initializes the components of the activity_splash UI and manages the communication
  * with the presenter, implements the interface Splash.
  * Created by jonathan.vargas on 30/03/2017.
  */
@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     SplashPresenter presenter;
 
     /**
-     * Initialize the UI components and the presenter instance.
+     * Initializes the UI components and the presenter instance.
      *
      * @param savedInstanceState
      */
@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     }
 
     /**
-     * Initialize the time that have to wait to change the View.
+     * Initializes the time that have to wait to change the View.
      */
     @Override
     protected void onResume() {

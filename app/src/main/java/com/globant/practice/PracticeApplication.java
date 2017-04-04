@@ -13,7 +13,7 @@ public class PracticeApplication extends Application {
     private static ApplicationComponent component;
 
     /**
-     * Initialize Dagger.
+     * Initializes Dagger.
      */
     @Override
     public void onCreate() {

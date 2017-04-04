@@ -13,8 +13,8 @@ import javax.inject.Inject;
 public class SplashPresenter {
     private SplashView view;
     private boolean firstTimeThatRun = true;
-    private static final int timeToWait = 3500;
-    private Timer t;
+    private static final int TIME_TO_WAIT = 3500;
+    private Timer timer;
 
     /**
      * Construct method of the SplashPresenter.
@@ -24,12 +24,12 @@ public class SplashPresenter {
     }
 
     /**
-     * Receive and assign a instance of the view interface.
+     * Receives and assign an instance of the view interface.
      *
-     * @param splash instance of the view interface
+     * @param view instance of the view interface
      */
-    public void attachView(SplashView splash) {
-        this.view = splash;
+    public void attachView(SplashView view) {
+        this.view = view;
     }
 
     /**
@@ -37,8 +37,8 @@ public class SplashPresenter {
      */
     public void timeToWaitForChangeView() {
         if (firstTimeThatRun) {
-            t = new Timer();
-            t.schedule(new TimerTask() {
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     if (isViewAttached()) {
@@ -47,7 +47,7 @@ public class SplashPresenter {
                         firstTimeThatRun = true;
                     }
                 }
-            }, timeToWait);
+            }, TIME_TO_WAIT);
         }
     }
 
@@ -66,12 +66,12 @@ public class SplashPresenter {
      * the first time that the application is invoked.
      */
     public void stopWaitTimeToChangeView() {
-        t.cancel();
+        timer.cancel();
         firstTimeThatRun = true;
     }
 
     /**
-     * Check if the view is attach for prevent a NullPointerException.
+     * Checks if the view is attach for prevent a NullPointerException.
      *
      * @return True if the view is attach or else if not
      */
