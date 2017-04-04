@@ -41,7 +41,7 @@ public class SplashPresenter {
             t.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if (isTheViewAttached()) {
+                    if (isViewAttached()) {
                         view.changeView();
                     } else {
                         firstTimeThatRun = true;
@@ -72,9 +72,10 @@ public class SplashPresenter {
 
     /**
      * Check if the view is attach for prevent a NullPointerException.
+     *
      * @return True if the view is attach or else if not
      */
-    private boolean isTheViewAttached() {
-            return view != null;
+    private boolean isViewAttached() {
+        return view != null;
     }
 }

@@ -1,7 +1,7 @@
 package com.globant.practice.view.activities;
 
 /**
- * Work to decouple the view of the presenter.
+ * Works to decouple the view of the presenter.
  * Created by jonathan.vargas on 31/03/2017.
  */
 

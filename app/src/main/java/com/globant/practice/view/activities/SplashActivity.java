@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
      */
     @Override
     public void changeView() {
-        Intent toHome = new Intent(SplashActivity.this, HomeActivity.class);
+        Intent toHome = new Intent(this, HomeActivity.class);
         startActivity(toHome);
     }
 }
