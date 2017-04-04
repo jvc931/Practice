@@ -61,7 +61,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
      * Change the view to the HomeView when the time to wait is finish.
      */
     @Override
-    public void changeView() {
+    public void navigateToHome() {
         Intent toHome = new Intent(this, HomeActivity.class);
         startActivity(toHome);
     }

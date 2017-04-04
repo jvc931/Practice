@@ -1,37 +1,37 @@
 package com.globant.practice.presenter;
 
 import com.globant.practice.view.activities.SplashView;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Unit test for the methods of the SplashPresenter.
  * Created by jonathan.vargas on 4/04/2017.
  */
 public class SplashPresenterTest {
-
+    @Mock
     private SplashPresenter presenter;
     @Mock
     private SplashView mockView;
 
     /**
      * Initializes the presenter and the mockView.
+     *
      * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new SplashPresenter();
         presenter.attachView(mockView);
     }
 
     /**
      * Unit test for timeToWaitForChangeView method that have to wait the set time
      * without errors.
+     *
      * @throws Exception
      */
     @Test
@@ -47,6 +47,7 @@ public class SplashPresenterTest {
     /**
      * Unit test for stopWaitTimeToChangeView method, have to call first
      * timeToWaitForChangeView method to prevent the NullPointerException.
+     *
      * @throws Exception
      */
     @Test
@@ -54,7 +55,7 @@ public class SplashPresenterTest {
         presenter.timeToWaitForChangeView();
         try {
             presenter.stopWaitTimeToChangeView();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             fail("Timer is not initialised.");
         }
     }

@@ -42,7 +42,7 @@ public class SplashPresenter {
                 @Override
                 public void run() {
                     if (isViewAttached()) {
-                        view.changeView();
+                        view.navigateToHome();
                     } else {
                         firstTimeThatRun = true;
                     }

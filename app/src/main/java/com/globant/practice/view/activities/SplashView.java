@@ -10,5 +10,5 @@ public interface SplashView {
     /**
      * Creates and starts the intent to change the view to HomeActivity.
      */
-    void changeView();
+    void navigateToHome();
 }
