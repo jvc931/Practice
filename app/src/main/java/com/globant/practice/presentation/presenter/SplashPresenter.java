@@ -1,6 +1,6 @@
-package com.globant.practice.presenter;
+package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.view.activities.SplashView;
+import com.globant.practice.presentation.view.activity.SplashView;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.inject.Inject;
@@ -9,7 +9,6 @@ import javax.inject.Inject;
  * Contains the methods that the SplashActivity needs.
  * Created by jonathan.vargas on 30/03/2017.
  */
-
 public class SplashPresenter {
     private SplashView view;
     private boolean firstTimeThatRun = true;
