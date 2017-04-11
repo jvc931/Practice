@@ -2,6 +2,7 @@ package com.globant.practice.presentation.presenter;
 
 import com.globant.practice.domain.interactor.UserInteractor;
 import com.globant.practice.domain.model.User;
+import com.globant.practice.presentation.view.activity.BaseView;
 import com.globant.practice.presentation.view.activity.HomeView;
 import java.util.List;
 import javax.inject.Inject;
@@ -16,11 +17,11 @@ import io.reactivex.schedulers.Schedulers;
  * Created by jonathan.vargas on 4/04/2017.
  */
 
-public class HomePresenter {
+public class HomePresenter extends BasePresenter<HomeView> {
 
-    private HomeView view;
     private UserInteractor interactor;
     private Observable<List<User>> getUsersListObservable;
+    private List<User> userList;
 
     /**
      * Construct method of the HomePresenter, receives a UserInteractor instance for
@@ -34,29 +35,15 @@ public class HomePresenter {
     }
 
     /**
-     * Receives and assign an instance of the view interface.
-     *
-     * @param view view interface reference
-     */
-    public void attachView(HomeView view) {
-        this.view = view;
-    }
-
-    /**
-     * Detach the instance of the view.
-     */
-    public void detachView() {
-        view = null;
-    }
-
-    /**
      * Makes the call for obtain a list of the users.
      */
     public void getUsers() {
-        getUsersListObservable = interactor.getUsers();
-        getUsersListObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(getUsersListSubscriber);
+        if(userList == null){
+            getUsersListObservable = interactor.getUsers();
+            getUsersListObservable.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(getUsersListSubscriber);
+        }
     }
 
     /**
@@ -65,6 +52,7 @@ public class HomePresenter {
     private Observer<List<User>> getUsersListSubscriber = new Observer<List<User>>() {
         @Override
         public void onError(Throwable e) {
+
         }
 
         @Override
@@ -77,6 +65,11 @@ public class HomePresenter {
 
         @Override
         public void onNext(List<User> usersList) {
+            setUserList(usersList);
         }
     };
+
+    private void setUserList(List<User> userList){
+        this.userList = userList;
+    }
 }

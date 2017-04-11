@@ -14,7 +14,7 @@ import retrofit2.http.Path;
  * Created by jonathan.vargas on 4/04/2017.
  */
 
-public interface ApiGitHub {
+public interface GitHubApi {
 
     /**
      * Api call that returns a list of the Github users.

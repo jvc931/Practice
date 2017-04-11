@@ -1,6 +1,5 @@
 package com.globant.practice.di;
 
-import com.globant.practice.domain.interactor.UserInteractor;
 import com.globant.practice.presentation.view.activity.HomeActivity;
 import com.globant.practice.presentation.view.activity.SplashActivity;
 import javax.inject.Singleton;
@@ -28,12 +27,4 @@ public interface ApplicationComponent {
      * @param activity is the type HomeActivity
      */
     void inject(HomeActivity activity);
-
-    /**
-     * Inject method for the UserInteractor instance
-     *
-     * @param userInteractor is the type UserInteractor
-     */
-    void inject(UserInteractor userInteractor);
-
 }
