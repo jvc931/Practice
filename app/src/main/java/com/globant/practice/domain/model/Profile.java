@@ -1,5 +1,7 @@
 package com.globant.practice.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Represents the user profile.
  * Created by jonathan.vargas on 5/04/2017.
@@ -7,13 +9,16 @@ package com.globant.practice.domain.model;
 
 public final class Profile {
     private final String login;
+    @SerializedName("avatar_url")
     private final String avatarUrl;
+    @SerializedName("html_url")
     private final String htmlUrl;
     private final String name;
     private final String company;
     private final String location;
     private final int followers;
     private final int following;
+    @SerializedName("public_repos")
     private final int publicRepos;
 
     public Profile(String login, String avatarUrl, String htmlUrl, String name,

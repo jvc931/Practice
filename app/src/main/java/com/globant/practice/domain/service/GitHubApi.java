@@ -7,6 +7,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * Interface that is required by retrofit and contains all the possible api calls that the
@@ -21,8 +22,8 @@ public interface GitHubApi {
      *
      * @return
      */
-    @GET("users")
-    Observable<List<User>> getUsers();
+    @GET
+    Observable<List<User>> getUsers(@Url String url);
 
     /**
      * Api call that returns the information of the user profile, receive

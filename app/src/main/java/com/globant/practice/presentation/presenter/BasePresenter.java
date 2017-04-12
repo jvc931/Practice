@@ -1,13 +1,13 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.presentation.view.activity.BaseView;
+import com.globant.practice.presentation.view.BaseView;
 
 /**
  * Contains the common methods that the presenters needs.
  * Created by jonathan.vargas on 11/04/2017.
  */
 
-public abstract class BasePresenter<V extends BaseView> {
+public class BasePresenter<V extends BaseView> {
 
     protected V view;
 
@@ -21,8 +21,7 @@ public abstract class BasePresenter<V extends BaseView> {
     }
 
     /**
-     * Detach the instance of the view and change the flag that indicates
-     * if is the first time that the application is invoked.
+     * Detach the instance of the view.
      */
     public void detachView() {
         view = null;

@@ -1,8 +1,7 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.domain.interactor.UserInteractor;
+import com.globant.practice.domain.interactor.ObtainUsers;
 import com.globant.practice.domain.model.User;
-import com.globant.practice.presentation.view.activity.BaseView;
 import com.globant.practice.presentation.view.activity.HomeView;
 import java.util.List;
 import javax.inject.Inject;
@@ -19,27 +18,27 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter extends BasePresenter<HomeView> {
 
-    private UserInteractor interactor;
+    private ObtainUsers interactor;
     private Observable<List<User>> getUsersListObservable;
     private List<User> userList;
 
     /**
-     * Construct method of the HomePresenter, receives a UserInteractor instance for
+     * Construct method of the HomePresenter, receives a ObtainUsers instance for
      * manage the user data.
      *
      * @param interactor
      */
     @Inject
-    public HomePresenter(UserInteractor interactor) {
+    public HomePresenter(ObtainUsers interactor) {
         this.interactor = interactor;
     }
 
     /**
      * Makes the call for obtain a list of the users.
      */
-    public void getUsers() {
-        if(userList == null){
-            getUsersListObservable = interactor.getUsers();
+    public void fetchUsers() {
+        if (userList == null) {
+            getUsersListObservable = interactor.fetchUsers();
             getUsersListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersListSubscriber);
@@ -47,7 +46,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Manages the callback of the getUsers call.
+     * Manages the callback of the fetchUsers call.
      */
     private Observer<List<User>> getUsersListSubscriber = new Observer<List<User>>() {
         @Override
@@ -65,11 +64,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
         @Override
         public void onNext(List<User> usersList) {
-            setUserList(usersList);
+            userList = usersList;
         }
     };
-
-    private void setUserList(List<User> userList){
-        this.userList = userList;
-    }
 }

@@ -16,11 +16,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String" , "BASE_URL", '"https://api.github.com/"'
+            buildConfigField "String" , "BASE_URL_USER_LIST", '"https://api.github.com/repos/googlesamples/android-architecture/subscribers"'
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String" , "BASE_URL", '"https://api.github.com/"'
+            buildConfigField "String" , "BASE_URL_USER_LIST", '"https://api.github.com/repos/googlesamples/android-architecture/subscribers"'
         }
     }
 }

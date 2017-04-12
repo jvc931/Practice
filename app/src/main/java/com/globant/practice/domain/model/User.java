@@ -1,5 +1,7 @@
 package com.globant.practice.domain.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Represents the user.
  * Created by jonathan.vargas on 3/04/2017.
@@ -8,6 +10,7 @@ package com.globant.practice.domain.model;
 public final class User {
 
     private final String login;
+    @SerializedName("avatar_url")
     private final String avatarUrl;
 
     public User(String login, String avatarUrl) {

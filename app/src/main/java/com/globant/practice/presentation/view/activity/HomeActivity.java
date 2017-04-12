@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     protected void onResume() {
         super.onResume();
         presenter.attachView(this);
-        presenter.getUsers();
+        presenter.fetchUsers();
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.globant.practice.domain.interactor;
 
+import com.globant.practice.BuildConfig;
 import com.globant.practice.domain.model.User;
 import com.globant.practice.domain.service.GitHubApi;
 import java.util.List;
@@ -11,17 +12,17 @@ import io.reactivex.Observable;
  * Created by jonathan.vargas on 4/04/2017.
  */
 
-public class UserInteractor {
+public class ObtainUsers {
 
     private GitHubApi apiClient;
 
     /**
-     * Construct method of UserInteractor that receives a GithubApi reference.
+     * Construct method of ObtainUsers that receives a GithubApi reference.
      *
      * @param apiClient GitHubApi reference
      */
     @Inject
-    public UserInteractor(GitHubApi apiClient) {
+    public ObtainUsers(GitHubApi apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -30,7 +31,7 @@ public class UserInteractor {
      *
      * @return
      */
-    public Observable<List<User>> getUsers() {
-        return apiClient.getUsers();
+    public Observable<List<User>> fetchUsers() {
+        return apiClient.getUsers(BuildConfig.BASE_URL_USER_LIST);
     }
 }

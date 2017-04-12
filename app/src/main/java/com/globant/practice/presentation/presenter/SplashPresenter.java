@@ -9,7 +9,7 @@ import javax.inject.Inject;
  * Contains the methods that the SplashActivity needs.
  * Created by jonathan.vargas on 30/03/2017.
  */
-public class SplashPresenter extends BasePresenter<SplashView>{
+public class SplashPresenter extends BasePresenter<SplashView> {
     private boolean firstTimeThatRun = true;
     private static final int TIME_TO_WAIT = 3500;
     private Timer timer;
@@ -58,5 +58,15 @@ public class SplashPresenter extends BasePresenter<SplashView>{
      */
     private boolean isViewAttached() {
         return view != null;
+    }
+
+    /**
+     * Detach the instance of the view and change the flag that indicates
+     * if is the first time that the application is invoked.
+     */
+    @Override
+    public void detachView() {
+        view = null;
+        firstTimeThatRun = false;
     }
 }

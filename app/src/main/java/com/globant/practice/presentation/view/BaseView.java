@@ -1,4 +1,4 @@
-package com.globant.practice.presentation.view.activity;
+package com.globant.practice.presentation.view;
 
 /**
  * Common interface for the views interfaces.
