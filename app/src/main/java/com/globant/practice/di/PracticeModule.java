@@ -1,7 +1,7 @@
 package com.globant.practice.di;
 
 import com.globant.practice.BuildConfig;
-import com.globant.practice.domain.interactor.ObtainUsers;
+import com.globant.practice.domain.interactor.FetchUsers;
 import com.globant.practice.domain.service.GitHubApi;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.presenter.SplashPresenter;
@@ -38,7 +38,7 @@ public class PracticeModule {
      */
     @Provides
     @Singleton
-    HomePresenter provideHomePresenter(ObtainUsers interactor) {
+    HomePresenter provideHomePresenter(FetchUsers interactor) {
         return new HomePresenter(interactor);
     }
 

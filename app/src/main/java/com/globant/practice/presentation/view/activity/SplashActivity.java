@@ -13,7 +13,7 @@ import javax.inject.Inject;
  * with the presenter, implements the interface Splash.
  * Created by jonathan.vargas on 30/03/2017.
  */
-public class SplashActivity extends AppCompatActivity implements SplashView{
+public class SplashActivity extends AppCompatActivity implements SplashView {
     @Inject
     SplashPresenter presenter;
 

@@ -66,7 +66,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
      */
     @Override
     public void detachView() {
-        view = null;
+        super.detachView();
         firstTimeThatRun = false;
     }
 }

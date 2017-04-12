@@ -1,6 +1,6 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.domain.interactor.ObtainUsers;
+import com.globant.practice.domain.interactor.FetchUsers;
 import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.view.activity.HomeView;
 import java.util.List;
@@ -18,18 +18,18 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter extends BasePresenter<HomeView> {
 
-    private ObtainUsers interactor;
+    private FetchUsers interactor;
     private Observable<List<User>> getUsersListObservable;
     private List<User> userList;
 
     /**
-     * Construct method of the HomePresenter, receives a ObtainUsers instance for
+     * Construct method of the HomePresenter, receives a FetchUsers instance for
      * manage the user data.
      *
      * @param interactor
      */
     @Inject
-    public HomePresenter(ObtainUsers interactor) {
+    public HomePresenter(FetchUsers interactor) {
         this.interactor = interactor;
     }
 
@@ -38,7 +38,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
      */
     public void fetchUsers() {
         if (userList == null) {
-            getUsersListObservable = interactor.fetchUsers();
+            getUsersListObservable = interactor.execute();
             getUsersListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersListSubscriber);
@@ -46,7 +46,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Manages the callback of the fetchUsers call.
+     * Manages the callback of the execute call.
      */
     private Observer<List<User>> getUsersListSubscriber = new Observer<List<User>>() {
         @Override
