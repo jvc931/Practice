@@ -64,5 +64,6 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     public void navigateToHome() {
         Intent toHome = new Intent(this, HomeActivity.class);
         startActivity(toHome);
+        finish();
     }
 }
