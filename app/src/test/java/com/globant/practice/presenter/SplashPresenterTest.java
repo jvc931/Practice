@@ -1,6 +1,7 @@
 package com.globant.practice.presenter;
 
-import com.globant.practice.view.activities.SplashView;
+import com.globant.practice.presentation.presenter.SplashPresenter;
+import com.globant.practice.presentation.view.activity.SplashView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -59,5 +60,4 @@ public class SplashPresenterTest {
             fail("Timer is not initialised.");
         }
     }
-
 }

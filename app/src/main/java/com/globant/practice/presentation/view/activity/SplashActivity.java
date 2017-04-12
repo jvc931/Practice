@@ -1,11 +1,11 @@
-package com.globant.practice.view.activities;
+package com.globant.practice.presentation.view.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.globant.practice.PracticeApplication;
-import com.globant.practice.presenter.SplashPresenter;
 import com.globant.practice.R;
+import com.globant.practice.presentation.presenter.SplashPresenter;
 import javax.inject.Inject;
 
 /**
