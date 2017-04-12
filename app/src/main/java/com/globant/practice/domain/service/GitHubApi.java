@@ -23,7 +23,7 @@ public interface GitHubApi {
      * @return
      */
     @GET("repos/{login}/{repo}/subscribers")
-    Observable<List<User>> getUsers(@Path("login") String login, @Path("repo") String repo);
+    Observable<List<User>> getRepoSubscribers(@Path("login") String login, @Path("repo") String repo);
 
     /**
      * Api call that returns the information of the user profile, receive

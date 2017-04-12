@@ -1,6 +1,5 @@
 package com.globant.practice.domain.interactor;
 
-import com.globant.practice.BuildConfig;
 import com.globant.practice.domain.model.User;
 import com.globant.practice.domain.service.GitHubApi;
 import java.util.List;
@@ -15,6 +14,8 @@ import io.reactivex.Observable;
 public class FetchUsers {
 
     private GitHubApi apiClient;
+    private static final String LOGIN = "googlesamples";
+    private static final String REPO = "android-architecture";
 
     /**
      * Construct method of FetchUsers that receives a GithubApi reference.
@@ -32,6 +33,6 @@ public class FetchUsers {
      * @return
      */
     public Observable<List<User>> execute() {
-        return apiClient.getUsers("googlesamples","android-architecture");
+        return apiClient.getRepoSubscribers(LOGIN, REPO);
     }
 }
