@@ -42,6 +42,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
             getUsersListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersListSubscriber);
+        } else {
+            view.createListHomeRecyclerView(userList);
         }
     }
 
@@ -51,7 +53,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     private Observer<List<User>> getUsersListSubscriber = new Observer<List<User>>() {
         @Override
         public void onError(Throwable e) {
-
+            view.showMessageError();
         }
 
         @Override
@@ -65,6 +67,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
         @Override
         public void onNext(List<User> usersList) {
             userList = usersList;
+            view.createListHomeRecyclerView(usersList);
         }
     };
 }
