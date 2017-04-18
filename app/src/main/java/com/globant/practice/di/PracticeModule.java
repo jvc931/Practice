@@ -35,13 +35,12 @@ public class PracticeModule {
      * Returns a unique reference of HomePresenter.
      *
      * @param interactor needs an UsersInteractor reference
-     * @param homeViewState needs a HomeViewState reference
      * @return HomePresenter reference
      */
     @Provides
     @Singleton
-    HomePresenter provideHomePresenter(FetchUsers interactor, HomeViewState homeViewState) {
-        return new HomePresenter(interactor, homeViewState);
+    HomePresenter provideHomePresenter(FetchUsers interactor) {
+        return new HomePresenter(interactor);
     }
 
     /**

@@ -31,9 +31,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
      * @param interactor
      */
     @Inject
-    public HomePresenter(FetchUsers interactor, HomeViewState homeViewState) {
+    public HomePresenter(FetchUsers interactor) {
         this.interactor = interactor;
-        this.homeViewState = homeViewState;
+        homeViewState = new HomeViewState();
     }
 
     /**
@@ -45,7 +45,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
             homeViewState.setLoading(false);
             homeViewState.setUsers(null);
             homeViewState.setError(false);
-            homeViewState.setViewShowing(false);
             view.render(homeViewState);
         }
         super.detachView();
@@ -55,7 +54,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
      * Makes the call for obtain a list of the users.
      */
     public void fetchUsers() {
-        homeViewState.setViewShowing(true);
         if (userList == null && !homeViewState.isLoading()) {
             homeViewState.setLoading(true);
             homeViewState.setUsers(null);
@@ -65,11 +63,11 @@ public class HomePresenter extends BasePresenter<HomeView> {
             getUsersListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersListSubscriber);
-        } else {
+        } else if (userList != null) {
             homeViewState.setLoading(false);
             homeViewState.setUsers(userList);
             homeViewState.setError(false);
-            if (homeViewState.isViewShowing()) {
+            if (isViewAttached()) {
                 view.render(homeViewState);
             }
         }
@@ -84,7 +82,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
             homeViewState.setLoading(false);
             homeViewState.setUsers(null);
             homeViewState.setError(true);
-            if (homeViewState.isViewShowing()) {
+            if (isViewAttached()) {
                 view.render(homeViewState);
             }
         }
@@ -103,7 +101,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
             homeViewState.setLoading(false);
             homeViewState.setUsers(usersList);
             homeViewState.setError(false);
-            if (homeViewState.isViewShowing()) {
+            if (isViewAttached()) {
                 view.render(homeViewState);
             }
         }

@@ -108,7 +108,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onUserClickListener.onUserClick(user);
+                    if (onUserClickListener != null) {
+                        onUserClickListener.onUserClick(user);
+                    }
                 }
             });
         }

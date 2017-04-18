@@ -28,7 +28,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private RecyclerView listHomeRecyclerView;
     private ProgressDialog fetchUserIndicator;
     private SubscriberAdapter listHomeAdapter;
-    private HomeViewState homeViewState;
     @Inject
     HomePresenter presenter;
 
@@ -86,7 +85,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
      */
     @Override
     public void render(HomeViewState homeViewState) {
-        this.homeViewState = homeViewState;
         if (homeViewState.isLoading()) {
             fetchUserIndicator.show();
         } else if (homeViewState.getUsers() != null) {
@@ -100,15 +98,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         } else if (homeViewState.isError()) {
             fetchUserIndicator.dismiss();
             showMessageError();
-        } else if (!homeViewState.isViewShowing()) {
-            fetchUserIndicator.dismiss();
         }
     }
 
     /**
      * Shows a AlertDialog to inform at the user that the api call have an error
      */
-    public void showMessageError() {
+    private void showMessageError() {
         fetchUserIndicator.dismiss();
         new AlertDialog.Builder(this).setTitle(getString(R.string.net_error_message))
                 .setCancelable(false).setPositiveButton(getString(R.string.accept_text), new DialogInterface.OnClickListener() {
