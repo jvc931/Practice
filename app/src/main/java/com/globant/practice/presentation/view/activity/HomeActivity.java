@@ -8,14 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.domain.model.User;
+import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
-import com.globant.practice.presentation.view.adapter.ListHomeAdapter;
-import java.util.List;
+import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
+
 import javax.inject.Inject;
 
 /**
@@ -27,9 +27,20 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     private RecyclerView listHomeRecyclerView;
     private ProgressDialog fetchUserIndicator;
-    private ListHomeAdapter listHomeAdapter;
+    private SubscriberAdapter listHomeAdapter;
+    private HomeViewState homeViewState;
     @Inject
     HomePresenter presenter;
+
+    /**
+     * Manages the actions when the user makes click
+     */
+    private SubscriberAdapter.OnUserClickListener userClickListener = new SubscriberAdapter.OnUserClickListener() {
+        @Override
+        public void onUserClick(User item) {
+
+        }
+    };
 
     /**
      * Initializes the UI components and the presenter instance.
@@ -57,7 +68,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         super.onResume();
         presenter.attachView(this);
         presenter.fetchUsers();
-        fetchUserIndicator.show();
     }
 
     /**
@@ -66,33 +76,38 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     protected void onPause() {
         super.onPause();
-        if (fetchUserIndicator.isShowing()) {
-            fetchUserIndicator.dismiss();
-        }
         presenter.detachView();
     }
 
     /**
-     * Initializes the RecyclerView when have a response of the api call with the list of users
+     * Renders the view items depending of the view state
      *
-     * @param users List of users
+     * @param homeViewState State of the view
      */
     @Override
-    public void createListHomeRecyclerView(List<User> users) {
-        listHomeRecyclerView.setHasFixedSize(true);
-        listHomeAdapter = new ListHomeAdapter(users);
-        listHomeRecyclerView.setAdapter(listHomeAdapter);
-        listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
-        listHomeAdapter.setOnClickListener(listHomeOnClickListener);
-        fetchUserIndicator.dismiss();
+    public void render(HomeViewState homeViewState) {
+        this.homeViewState = homeViewState;
+        if (homeViewState.isLoading()) {
+            fetchUserIndicator.show();
+        } else if (homeViewState.getUsers() != null) {
+            listHomeRecyclerView.setHasFixedSize(true);
+            listHomeAdapter = new SubscriberAdapter(homeViewState.getUsers(), userClickListener);
+            listHomeRecyclerView.setAdapter(listHomeAdapter);
+            listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
+            fetchUserIndicator.dismiss();
+        } else if (homeViewState.isError()) {
+            fetchUserIndicator.dismiss();
+            showMessageError();
+        } else if (!homeViewState.isViewShowing()) {
+            fetchUserIndicator.dismiss();
+        }
     }
 
     /**
      * Shows a AlertDialog to inform at the user that the api call have an error
      */
-    @Override
     public void showMessageError() {
         fetchUserIndicator.dismiss();
         new AlertDialog.Builder(this).setTitle(getString(R.string.net_error_message))
@@ -103,13 +118,4 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             }
         }).create().show();
     }
-
-    /**
-     * Manages the actions when the user makes a click
-     */
-    private View.OnClickListener listHomeOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        }
-    };
 }

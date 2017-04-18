@@ -14,18 +14,32 @@ import java.util.List;
  * Adapter of the RecyclerView on HomeActivity
  * Created by jonathan.vargas on 17/04/2017.
  */
-public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHomeViewHolder>
-        implements View.OnClickListener {
-    private View.OnClickListener listener;
+public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.SubscriberViewHolder> {
+
+    /**
+     * Provides the manager of the user clicks on the RecyclerView
+     */
+    public interface OnUserClickListener {
+        /**
+         * Manages the user clicks
+         *
+         * @param user User instance of the object that the user makes click
+         */
+        void onUserClick(User user);
+    }
+
     private List<User> users;
+    private final OnUserClickListener onUserClickListener;
+
 
     /**
      * Setter of the users list
      *
      * @param users List of user
      */
-    public ListHomeAdapter(List<User> users) {
+    public SubscriberAdapter(List<User> users, OnUserClickListener onUserClickListener) {
         this.users = users;
+        this.onUserClickListener = onUserClickListener;
     }
 
     /**
@@ -36,11 +50,10 @@ public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHo
      * @return New ViewHolder
      */
     @Override
-    public ListHomeAdapter.ListHomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SubscriberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_home_item, parent, false);
-        itemView.setOnClickListener(this);
-        ListHomeViewHolder listHomeViewHolder = new ListHomeViewHolder(itemView);
+                .inflate(R.layout.subscriber_list_item, parent, false);
+        SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
         return listHomeViewHolder;
     }
 
@@ -51,9 +64,9 @@ public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHo
      * @param position Position of the item
      */
     @Override
-    public void onBindViewHolder(ListHomeAdapter.ListHomeViewHolder holder, int position) {
+    public void onBindViewHolder(SubscriberViewHolder holder, int position) {
         User user = users.get(position);
-        holder.blindListHome(user);
+        holder.blindSubscriberList(user, onUserClickListener);
     }
 
     /**
@@ -67,30 +80,9 @@ public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHo
     }
 
     /**
-     * Setter of the RecyclerView click listener
-     *
-     * @param listener OnClickListener of the RecyclerView
-     */
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
-
-    /**
-     * Manages the actions when the user makes a click
-     *
-     * @param v View reference
-     */
-    @Override
-    public void onClick(View v) {
-        if (listener != null) {
-            listener.onClick(v);
-        }
-    }
-
-    /**
      * Inner class that manages the items of the view
      */
-    public static class ListHomeViewHolder extends RecyclerView.ViewHolder {
+    public static class SubscriberViewHolder extends RecyclerView.ViewHolder {
         private TextView nickname;
         private ImageView avatar;
 
@@ -99,7 +91,7 @@ public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHo
          *
          * @param itemView
          */
-        public ListHomeViewHolder(View itemView) {
+        public SubscriberViewHolder(View itemView) {
             super(itemView);
             nickname = (TextView) itemView.findViewById(R.id.userHomeTxt);
             avatar = (ImageView) itemView.findViewById(R.id.userHomeImg);
@@ -108,10 +100,17 @@ public class ListHomeAdapter extends RecyclerView.Adapter<ListHomeAdapter.ListHo
         /**
          * Sets the data on the view item.
          *
-         * @param user User information
+         * @param user                User information
+         * @param onUserClickListener onUserClickListener for the user clicks
          */
-        public void blindListHome(User user) {
+        public void blindSubscriberList(final User user, final OnUserClickListener onUserClickListener) {
             nickname.setText(user.getLogin());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onUserClickListener.onUserClick(user);
+                }
+            });
         }
     }
 }
