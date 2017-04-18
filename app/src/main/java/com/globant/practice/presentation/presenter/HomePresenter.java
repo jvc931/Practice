@@ -58,7 +58,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
             homeViewState.setLoading(true);
             homeViewState.setUsers(null);
             homeViewState.setError(false);
-            view.render(homeViewState);
+            if (isViewAttached()) {
+                view.render(homeViewState);
+            }
             getUsersListObservable = interactor.execute();
             getUsersListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
