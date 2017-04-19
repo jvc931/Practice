@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="splash_text">Aplicación Suscriptores GitHub</string>
+    <string name="large_app_name">Aplicación Suscriptores GitHub</string>
     <string name="home_progress_dialog">Obteniendo usuarios por favor espere</string>
     <string name="accept_text">Aceptar</string>
     <string name="net_error_message">No se pudo obtener la información del servidor. por favor intente más tarde.</string>

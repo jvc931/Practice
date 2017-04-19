@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
-        getSupportActionBar().setTitle(getString(R.string.splash_text));
+        getSupportActionBar().setTitle(getString(R.string.large_app_name));
         listHomeRecyclerView = (RecyclerView) findViewById(R.id.listHomeRecyclerView);
         fetchUserIndicator = new ProgressDialog(this);
         fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
@@ -100,6 +100,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         }
     }
 
+    /**
+     * Gets the error message text from the resource file
+     *
+     * @return Error message text
+     */
     @Override
     public String getErrorMessageText() {
         return getString(R.string.net_error_message);

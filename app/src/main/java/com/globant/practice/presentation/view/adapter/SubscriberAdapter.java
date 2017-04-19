@@ -14,8 +14,7 @@ import java.util.List;
  * Adapter of the RecyclerView on HomeActivity
  * Created by jonathan.vargas on 17/04/2017.
  */
-public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.SubscriberViewHolder>
-        implements View.OnClickListener {
+public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.SubscriberViewHolder> {
 
     /**
      * Provides the manager of the user clicks on the RecyclerView
@@ -30,7 +29,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     }
 
     private List<User> users;
-    private final OnUserClickListener onUserClickListener;
+    private OnUserClickListener onUserClickListener;
 
     /**
      * Setter of the users list
@@ -53,8 +52,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     public SubscriberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subscriber_list_item, parent, false);
-        SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
-        itemView.setOnClickListener(this);
+        SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView, onUserClickListener);
         return listHomeViewHolder;
     }
 
@@ -80,28 +78,25 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         return users.size();
     }
 
-    @Override
-    public void onClick(View view) {
-        if (onUserClickListener != null)
-            onUserClickListener.onUserClick(view);
-    }
-
     /**
      * Inner class that manages the items of the view
      */
-    public static class SubscriberViewHolder extends RecyclerView.ViewHolder {
+    public static class SubscriberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView nickname;
         private ImageView avatar;
+        private OnUserClickListener onUserClickListener;
 
         /**
          * Construct method of the ListHomeHolder that initializes the view items
          *
          * @param itemView
          */
-        public SubscriberViewHolder(View itemView) {
+        public SubscriberViewHolder(View itemView, final OnUserClickListener onUserClickListener) {
             super(itemView);
             nickname = (TextView) itemView.findViewById(R.id.userHomeTxt);
             avatar = (ImageView) itemView.findViewById(R.id.userHomeImg);
+            this.onUserClickListener = onUserClickListener;
+            itemView.setOnClickListener(this);
         }
 
         /**
@@ -111,6 +106,17 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
          */
         public void blindSubscriberList(final User user) {
             nickname.setText(user.getLogin());
+        }
+
+        /**
+         * Manages the user clicks
+         *
+         * @param view view instance of the object that the user makes click
+         */
+        @Override
+        public void onClick(View view) {
+            if (onUserClickListener != null)
+                onUserClickListener.onUserClick(view);
         }
     }
 }
