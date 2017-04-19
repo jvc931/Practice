@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
+import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
      */
     private SubscriberAdapter.OnUserClickListener userClickListener = new SubscriberAdapter.OnUserClickListener() {
         @Override
-        public void onUserClick(View view) {
+        public void onUserClick(User user) {
         }
     };
 
