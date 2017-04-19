@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
-import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
@@ -36,8 +36,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
      */
     private SubscriberAdapter.OnUserClickListener userClickListener = new SubscriberAdapter.OnUserClickListener() {
         @Override
-        public void onUserClick(User item) {
-
+        public void onUserClick(View view) {
         }
     };
 
@@ -95,18 +94,23 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
             fetchUserIndicator.dismiss();
-        } else if (homeViewState.isError()) {
+        } else if (homeViewState.getError() != null) {
             fetchUserIndicator.dismiss();
-            showMessageError();
+            showErrorMessage(homeViewState.getError());
         }
+    }
+
+    @Override
+    public String getErrorMessageText() {
+        return getString(R.string.net_error_message);
     }
 
     /**
      * Shows a AlertDialog to inform at the user that the api call have an error
      */
-    private void showMessageError() {
+    private void showErrorMessage(String message) {
         fetchUserIndicator.dismiss();
-        new AlertDialog.Builder(this).setTitle(getString(R.string.net_error_message))
+        new AlertDialog.Builder(this).setTitle(message)
                 .setCancelable(false).setPositiveButton(getString(R.string.accept_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

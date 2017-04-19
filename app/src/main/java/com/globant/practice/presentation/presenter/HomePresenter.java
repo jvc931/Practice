@@ -37,27 +37,13 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Detach the instance of the view and stops the ProgressDialog if is showing.
-     */
-    @Override
-    public void detachView() {
-        if (homeViewState.isLoading()) {
-            homeViewState.setLoading(false);
-            homeViewState.setUsers(null);
-            homeViewState.setError(false);
-            view.render(homeViewState);
-        }
-        super.detachView();
-    }
-
-    /**
      * Makes the call for obtain a list of the users.
      */
     public void fetchUsers() {
+        homeViewState.setError(null);
         if (userList == null && !homeViewState.isLoading()) {
             homeViewState.setLoading(true);
             homeViewState.setUsers(null);
-            homeViewState.setError(false);
             if (isViewAttached()) {
                 view.render(homeViewState);
             }
@@ -68,7 +54,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
         } else if (userList != null) {
             homeViewState.setLoading(false);
             homeViewState.setUsers(userList);
-            homeViewState.setError(false);
             if (isViewAttached()) {
                 view.render(homeViewState);
             }
@@ -83,7 +68,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
         public void onError(Throwable e) {
             homeViewState.setLoading(false);
             homeViewState.setUsers(null);
-            homeViewState.setError(true);
+            homeViewState.setError(view.getErrorMessageText());
             if (isViewAttached()) {
                 view.render(homeViewState);
             }
@@ -102,7 +87,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
             userList = usersList;
             homeViewState.setLoading(false);
             homeViewState.setUsers(usersList);
-            homeViewState.setError(false);
+            homeViewState.setError(null);
             if (isViewAttached()) {
                 view.render(homeViewState);
             }

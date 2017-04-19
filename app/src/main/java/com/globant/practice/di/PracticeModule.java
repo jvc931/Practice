@@ -3,7 +3,6 @@ package com.globant.practice.di;
 import com.globant.practice.BuildConfig;
 import com.globant.practice.domain.interactor.FetchUsers;
 import com.globant.practice.domain.service.GitHubApi;
-import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.presenter.SplashPresenter;
 import javax.inject.Singleton;

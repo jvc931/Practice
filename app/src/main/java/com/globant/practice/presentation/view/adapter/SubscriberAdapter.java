@@ -14,7 +14,8 @@ import java.util.List;
  * Adapter of the RecyclerView on HomeActivity
  * Created by jonathan.vargas on 17/04/2017.
  */
-public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.SubscriberViewHolder> {
+public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.SubscriberViewHolder>
+        implements View.OnClickListener {
 
     /**
      * Provides the manager of the user clicks on the RecyclerView
@@ -23,14 +24,13 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         /**
          * Manages the user clicks
          *
-         * @param user User instance of the object that the user makes click
+         * @param view view instance of the object that the user makes click
          */
-        void onUserClick(User user);
+        void onUserClick(View view);
     }
 
     private List<User> users;
     private final OnUserClickListener onUserClickListener;
-
 
     /**
      * Setter of the users list
@@ -54,6 +54,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subscriber_list_item, parent, false);
         SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
+        itemView.setOnClickListener(this);
         return listHomeViewHolder;
     }
 
@@ -66,7 +67,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     @Override
     public void onBindViewHolder(SubscriberViewHolder holder, int position) {
         User user = users.get(position);
-        holder.blindSubscriberList(user, onUserClickListener);
+        holder.blindSubscriberList(user);
     }
 
     /**
@@ -77,6 +78,12 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     @Override
     public int getItemCount() {
         return users.size();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (onUserClickListener != null)
+            onUserClickListener.onUserClick(view);
     }
 
     /**
@@ -100,19 +107,10 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         /**
          * Sets the data on the view item.
          *
-         * @param user                User information
-         * @param onUserClickListener onUserClickListener for the user clicks
+         * @param user User information
          */
-        public void blindSubscriberList(final User user, final OnUserClickListener onUserClickListener) {
+        public void blindSubscriberList(final User user) {
             nickname.setText(user.getLogin());
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onUserClickListener != null) {
-                        onUserClickListener.onUserClick(user);
-                    }
-                }
-            });
         }
     }
 }

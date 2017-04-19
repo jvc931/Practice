@@ -2,7 +2,6 @@ package com.globant.practice.presentation.model;
 
 import com.globant.practice.domain.model.User;
 import java.util.List;
-import javax.inject.Inject;
 
 /**
  * Manages the states of the view
@@ -12,13 +11,7 @@ import javax.inject.Inject;
 public class HomeViewState {
     private boolean loading;
     private List<User> users;
-    private boolean error;
-
-    /**
-     * Construct method of the model
-     */
-    public HomeViewState() {
-    }
+    private String error;
 
     /**
      * Returns true if the ProgressDialog is showing
@@ -39,11 +32,11 @@ public class HomeViewState {
     }
 
     /**
-     * Returns true if the api call has a error
+     * Returns the error message
      *
-     * @return true if the api call has a error else returns false
+     * @return Error message
      */
-    public boolean isError() {
+    public String getError() {
         return error;
     }
 
@@ -66,11 +59,11 @@ public class HomeViewState {
     }
 
     /**
-     * Sets the error boolean
+     * Sets the error String
      *
-     * @param error New value of the error boolean
+     * @param error New value of the error String
      */
-    public void setError(boolean error) {
+    public void setError(String error) {
         this.error = error;
     }
 }

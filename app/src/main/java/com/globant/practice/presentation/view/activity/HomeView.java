@@ -15,4 +15,11 @@ public interface HomeView extends BaseView {
      * @param homeViewState State of the view
      */
     void render(HomeViewState homeViewState);
+
+    /**
+     * Gets the error message text from the resource file
+     *
+     * @return Error message text
+     */
+    String getErrorMessageText();
 }
