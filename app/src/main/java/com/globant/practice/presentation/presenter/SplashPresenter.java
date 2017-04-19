@@ -1,6 +1,6 @@
-package com.globant.practice.presenter;
+package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.view.activities.SplashView;
+import com.globant.practice.presentation.view.activity.SplashView;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.inject.Inject;
@@ -9,9 +9,7 @@ import javax.inject.Inject;
  * Contains the methods that the SplashActivity needs.
  * Created by jonathan.vargas on 30/03/2017.
  */
-
-public class SplashPresenter {
-    private SplashView view;
+public class SplashPresenter extends BasePresenter<SplashView> {
     private boolean firstTimeThatRun = true;
     private static final int TIME_TO_WAIT = 3500;
     private Timer timer;
@@ -23,14 +21,6 @@ public class SplashPresenter {
     public SplashPresenter() {
     }
 
-    /**
-     * Receives and assign an instance of the view interface.
-     *
-     * @param view instance of the view interface
-     */
-    public void attachView(SplashView view) {
-        this.view = view;
-    }
 
     /**
      * Create and run the timer that count the time to change to the other view,
@@ -52,15 +42,6 @@ public class SplashPresenter {
     }
 
     /**
-     * Detach the instance of the view and change the flag that indicates
-     * if is the first time that the application is invoked.
-     */
-    public void detachView() {
-        view = null;
-        firstTimeThatRun = false;
-    }
-
-    /**
      * Stop the timer to prevent a NullPointerException because the instance
      * of the view is not setting and change the flag that indicates if is
      * the first time that the application is invoked.
@@ -77,5 +58,15 @@ public class SplashPresenter {
      */
     private boolean isViewAttached() {
         return view != null;
+    }
+
+    /**
+     * Detach the instance of the view and change the flag that indicates
+     * if is the first time that the application is invoked.
+     */
+    @Override
+    public void detachView() {
+        super.detachView();
+        firstTimeThatRun = false;
     }
 }
