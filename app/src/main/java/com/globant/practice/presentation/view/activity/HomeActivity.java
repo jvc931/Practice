@@ -2,6 +2,7 @@ package com.globant.practice.presentation.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,9 +26,9 @@ import javax.inject.Inject;
  */
 public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberAdapter.OnUserClickListener {
 
-    private RecyclerView listHomeRecyclerView;
+    private RecyclerView subscriberRecyclerView;
     private ProgressDialog fetchUserIndicator;
-    private SubscriberAdapter listHomeAdapter;
+    private SubscriberAdapter subscriberAdapter;
     @Inject
     HomePresenter presenter;
 
@@ -42,17 +43,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
         getSupportActionBar().setTitle(getString(R.string.large_app_name));
-        listHomeRecyclerView = (RecyclerView) findViewById(R.id.listHomeRecyclerView);
+        subscriberRecyclerView = (RecyclerView) findViewById(R.id.listHomeRecyclerView);
         fetchUserIndicator = new ProgressDialog(this);
         fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
         fetchUserIndicator.setIndeterminate(true);
         fetchUserIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        listHomeAdapter = new SubscriberAdapter(null, this);
-        listHomeRecyclerView.setHasFixedSize(true);
-        listHomeRecyclerView.setAdapter(listHomeAdapter);
-        listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
+        subscriberAdapter = new SubscriberAdapter(null, this);
+        subscriberRecyclerView.setHasFixedSize(true);
+        subscriberRecyclerView.setAdapter(subscriberAdapter);
+        subscriberRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        subscriberRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        subscriberRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
     }
 
     /**
@@ -80,11 +81,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      * @param homeViewState State of the view
      */
     @Override
-    public void render(HomeViewState homeViewState) {
+    public void render(@NonNull HomeViewState homeViewState) {
         if (homeViewState.isLoading()) {
             fetchUserIndicator.show();
         } else if (homeViewState.getUsers() != null) {
-            listHomeAdapter.setUsers(homeViewState.getUsers());
+            subscriberAdapter.setUsers(homeViewState.getUsers());
             fetchUserIndicator.dismiss();
         } else if (homeViewState.getError() != null) {
             fetchUserIndicator.dismiss();
