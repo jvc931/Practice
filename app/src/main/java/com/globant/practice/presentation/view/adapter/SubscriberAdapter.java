@@ -115,8 +115,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
          */
         @Override
         public void onClick(View view) {
-            if (onUserClickListener != null)
+            if (onUserClickListener != null) {
                 onUserClickListener.onUserClick(user);
+            }
         }
     }
 }

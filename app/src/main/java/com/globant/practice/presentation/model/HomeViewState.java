@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Manages the states of the view
+ * TODO create a new User model into presentation model to decouple the domain model to the presentation model
  * Created by jonathan.vargas on 18/04/2017.
  */
 
