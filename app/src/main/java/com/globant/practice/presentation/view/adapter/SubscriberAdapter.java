@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.globant.practice.R;
 import com.globant.practice.domain.model.User;
+
 import java.util.List;
 
 /**
@@ -48,8 +50,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
      *
      * @param users user list
      */
-    public void setAdapterData(List<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
+        notifyDataSetChanged();
     }
 
     /**
@@ -86,11 +89,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
      */
     @Override
     public int getItemCount() {
-        if (users == null) {
-            return 0;
-        } else {
-            return users.size();
-        }
+        return users == null ? 0 : users.size();
     }
 
     /**

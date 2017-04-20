@@ -15,6 +15,7 @@ import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
+
 import javax.inject.Inject;
 
 /**
@@ -83,8 +84,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         if (homeViewState.isLoading()) {
             fetchUserIndicator.show();
         } else if (homeViewState.getUsers() != null) {
-            listHomeAdapter.setAdapterData(homeViewState.getUsers());
-            listHomeAdapter.notifyDataSetChanged();
+            listHomeAdapter.setUsers(homeViewState.getUsers());
             fetchUserIndicator.dismiss();
         } else if (homeViewState.getError() != null) {
             fetchUserIndicator.dismiss();
