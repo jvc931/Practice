@@ -26,4 +26,13 @@ public class BasePresenter<V extends BaseView> {
     public void detachView() {
         view = null;
     }
+
+    /**
+     * Checks if the view is attach for prevent a NullPointerException.
+     *
+     * @return True if the view is attach or else if not
+     */
+    protected boolean isViewAttached() {
+        return view != null;
+    }
 }
