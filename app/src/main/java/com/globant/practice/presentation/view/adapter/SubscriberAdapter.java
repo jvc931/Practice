@@ -35,9 +35,11 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     /**
      * Construct method of the SubscriberAdapter
      *
+     * @param users               user list instance
      * @param onUserClickListener OnUserClickListener instance
      */
-    public SubscriberAdapter(OnUserClickListener onUserClickListener) {
+    public SubscriberAdapter(List<User> users, OnUserClickListener onUserClickListener) {
+        this.users = users;
         this.onUserClickListener = onUserClickListener;
     }
 
@@ -84,7 +86,11 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
      */
     @Override
     public int getItemCount() {
-        return users.size();
+        if (users == null) {
+            return 0;
+        } else {
+            return users.size();
+        }
     }
 
     /**

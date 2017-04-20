@@ -15,7 +15,6 @@ import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
-
 import javax.inject.Inject;
 
 /**
@@ -47,7 +46,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
         fetchUserIndicator.setIndeterminate(true);
         fetchUserIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        listHomeAdapter = new SubscriberAdapter(this);
+        listHomeAdapter = new SubscriberAdapter(null, this);
+        listHomeRecyclerView.setHasFixedSize(true);
+        listHomeRecyclerView.setAdapter(listHomeAdapter);
+        listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
     }
 
     /**
@@ -79,12 +83,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         if (homeViewState.isLoading()) {
             fetchUserIndicator.show();
         } else if (homeViewState.getUsers() != null) {
-            listHomeRecyclerView.setHasFixedSize(true);
             listHomeAdapter.setAdapterData(homeViewState.getUsers());
-            listHomeRecyclerView.setAdapter(listHomeAdapter);
-            listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            listHomeRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
+            listHomeAdapter.notifyDataSetChanged();
             fetchUserIndicator.dismiss();
         } else if (homeViewState.getError() != null) {
             fetchUserIndicator.dismiss();
