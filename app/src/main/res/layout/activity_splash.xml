@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/splash_text"
+        android:text="@string/large_app_name"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_splash_size" />
 </LinearLayout>

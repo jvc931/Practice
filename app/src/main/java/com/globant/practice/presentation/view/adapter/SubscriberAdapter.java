@@ -20,6 +20,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
      * Provides the manager of the user clicks on the RecyclerView
      */
     public interface OnUserClickListener {
+
         /**
          * Manages the user clicks
          *
@@ -32,13 +33,21 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     private OnUserClickListener onUserClickListener;
 
     /**
-     * Setter of the users list
+     * Construct method of the SubscriberAdapter
      *
-     * @param users List of user
+     * @param onUserClickListener OnUserClickListener instance
      */
-    public SubscriberAdapter(List<User> users, OnUserClickListener onUserClickListener) {
-        this.users = users;
+    public SubscriberAdapter(OnUserClickListener onUserClickListener) {
         this.onUserClickListener = onUserClickListener;
+    }
+
+    /**
+     * Set the values of the user list
+     *
+     * @param users user list
+     */
+    public void setAdapterData(List<User> users) {
+        this.users = users;
     }
 
     /**

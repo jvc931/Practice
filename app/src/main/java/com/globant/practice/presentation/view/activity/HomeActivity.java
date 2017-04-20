@@ -23,22 +23,13 @@ import javax.inject.Inject;
  * with the presenter.
  * Created by jonathan.vargas on 31/03/2017.
  */
-public class HomeActivity extends AppCompatActivity implements HomeView {
+public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberAdapter.OnUserClickListener {
 
     private RecyclerView listHomeRecyclerView;
     private ProgressDialog fetchUserIndicator;
     private SubscriberAdapter listHomeAdapter;
     @Inject
     HomePresenter presenter;
-
-    /**
-     * Manages the actions when the user makes click
-     */
-    private SubscriberAdapter.OnUserClickListener userClickListener = new SubscriberAdapter.OnUserClickListener() {
-        @Override
-        public void onUserClick(User user) {
-        }
-    };
 
     /**
      * Initializes the UI components and the presenter instance.
@@ -56,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
         fetchUserIndicator.setIndeterminate(true);
         fetchUserIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        listHomeAdapter = new SubscriberAdapter(this);
     }
 
     /**
@@ -88,7 +80,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             fetchUserIndicator.show();
         } else if (homeViewState.getUsers() != null) {
             listHomeRecyclerView.setHasFixedSize(true);
-            listHomeAdapter = new SubscriberAdapter(homeViewState.getUsers(), userClickListener);
+            listHomeAdapter.setAdapterData(homeViewState.getUsers());
             listHomeRecyclerView.setAdapter(listHomeAdapter);
             listHomeRecyclerView.setItemAnimator(new DefaultItemAnimator());
             listHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -122,5 +114,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 dialog.cancel();
             }
         }).create().show();
+    }
+
+    /**
+     * Manages the user clicks
+     *
+     * @param user User instance of the object that the user makes click
+     */
+    @Override
+    public void onUserClick(User user) {
     }
 }
