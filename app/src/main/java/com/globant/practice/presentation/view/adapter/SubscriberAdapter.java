@@ -1,15 +1,15 @@
 package com.globant.practice.presentation.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.bumptech.glide.Glide;
 import com.globant.practice.R;
 import com.globant.practice.domain.model.User;
-
 import java.util.List;
 
 /**
@@ -33,6 +33,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
 
     private List<User> users;
     private OnUserClickListener onUserClickListener;
+    private Context context;
 
     /**
      * Construct method of the SubscriberAdapter
@@ -67,6 +68,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subscriber_list_item, parent, false);
         SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
+        context = parent.getContext();
         return listHomeViewHolder;
     }
 
@@ -101,7 +103,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         private User user;
 
         /**
-         * Construct method of the ListHomeHolder that initializes the view items
+         * Construct method of the SubscriberViewHolder that initializes the view items
          *
          * @param itemView
          */
@@ -120,6 +122,8 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         public void blindSubscriberList(final User user) {
             nickname.setText(user.getLogin());
             this.user = user;
+            Glide.with(context).load(user.getAvatarUrl()).centerCrop()
+                    .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
         }
 
         /**
