@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Practice</string>
-    <string name="splash_text">GitHub Suscriber App</string>
+    <string name="large_app_name">GitHub Subscriber App</string>
+    <string name="home_progress_dialog">Getting users please wait</string>
+    <string name="accept_text">Accept</string>
+    <string name="net_error_message">Couldn\'t get information from the server, please try later.</string>
 </resources>

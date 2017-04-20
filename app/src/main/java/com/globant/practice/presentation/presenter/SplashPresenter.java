@@ -52,15 +52,6 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     /**
-     * Checks if the view is attach for prevent a NullPointerException.
-     *
-     * @return True if the view is attach or else if not
-     */
-    private boolean isViewAttached() {
-        return view != null;
-    }
-
-    /**
      * Detach the instance of the view and change the flag that indicates
      * if is the first time that the application is invoked.
      */
