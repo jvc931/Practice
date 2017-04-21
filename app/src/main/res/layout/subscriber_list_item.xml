@@ -15,8 +15,7 @@
             android:id="@+id/userHomeImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            app:srcCompat="@mipmap/ic_account_circle_black_24dp" />
+            app:srcCompat="@drawable/ic_account_circle_black_24dp" />
     </LinearLayout>
 
     <LinearLayout
