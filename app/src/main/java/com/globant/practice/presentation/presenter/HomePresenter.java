@@ -93,4 +93,13 @@ public class HomePresenter extends BasePresenter<HomeView> {
             }
         }
     };
+
+    /**
+     * Manages the user clicks
+     *
+     * @param user User instance of the object that the user makes click
+     */
+    public void userClick(User user){
+        view.navigateToSubscriberDetails(user);
+    }
 }

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.domain.model.User;
@@ -16,7 +18,7 @@ import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
-
+import com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment;
 import javax.inject.Inject;
 
 /**
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
     private RecyclerView subscriberRecyclerView;
     private ProgressDialog fetchUserIndicator;
     private SubscriberAdapter subscriberAdapter;
+    private LinearLayout subscriberDetailsLayout, subscriberRecyclerViewLayout;
     @Inject
     HomePresenter presenter;
 
@@ -43,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
         getSupportActionBar().setTitle(getString(R.string.large_app_name));
-        subscriberRecyclerView = (RecyclerView) findViewById(R.id.listHomeRecyclerView);
+        subscriberRecyclerView = (RecyclerView) findViewById(R.id.subscriberRecyclerView);
         fetchUserIndicator = new ProgressDialog(this);
         fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
         fetchUserIndicator.setIndeterminate(true);
@@ -54,6 +57,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         subscriberRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subscriberRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         subscriberRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
+        subscriberDetailsLayout = (LinearLayout) findViewById(R.id.subscriberDetailsLayout);
+        subscriberRecyclerViewLayout = (LinearLayout) findViewById(R.id.subscriberRecyclerViewLayout);
     }
 
     /**
@@ -104,6 +109,19 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
     }
 
     /**
+     * Charge the SubscriberDetailsFragment into the HomeActivity
+     *
+     * @param user User instance of the user selected
+     */
+    @Override
+    public void navigateToSubscriberDetails(User user) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.subscriberDetailsLayout, SubscriberDetailsFragment.newInstance(user)).commit();
+        subscriberRecyclerViewLayout.setVisibility(View.GONE);
+        subscriberDetailsLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
      * Shows a AlertDialog to inform at the user that the api call have an error
      */
     private void showErrorMessage(String message) {
@@ -124,5 +142,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void onUserClick(User user) {
+        presenter.userClick(user);
     }
 }

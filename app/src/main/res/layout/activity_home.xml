@@ -8,8 +8,26 @@
     android:paddingRight="@dimen/layout_padding"
     tools:context="com.globant.practice.presentation.view.activity.HomeActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listHomeRecyclerView"
+    <LinearLayout
+        android:id="@+id/subscriberDetailsLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/subscriberRecyclerViewLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subscriberRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </LinearLayout>

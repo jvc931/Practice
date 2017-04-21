@@ -1,5 +1,6 @@
 package com.globant.practice.presentation.view.activity;
 
+import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.view.BaseView;
 
@@ -22,4 +23,11 @@ public interface HomeView extends BaseView {
      * @return Error message text
      */
     String getErrorMessageText();
+
+    /**
+     * Charge the SubscriberDetailsFragment into the HomeActivity
+     *
+     * @param user User instance of the user selected
+     */
+    void navigateToSubscriberDetails(User user);
 }
