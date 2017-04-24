@@ -26,9 +26,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         /**
          * Manages the user clicks
          *
-         * @param user User instance of the object that the user makes click
+         * @param nickname nickname of the user that the user makes click
          */
-        void onUserClick(User user);
+        void onUserClick(String nickname);
     }
 
     private List<User> users;
@@ -67,9 +67,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     public SubscriberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subscriber_list_item, parent, false);
-        SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
+        SubscriberViewHolder subscriberViewHolder = new SubscriberViewHolder(itemView);
         context = parent.getContext();
-        return listHomeViewHolder;
+        return subscriberViewHolder;
     }
 
     /**
@@ -134,7 +134,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         @Override
         public void onClick(View view) {
             if (onUserClickListener != null) {
-                onUserClickListener.onUserClick(user);
+                onUserClickListener.onUserClick(user.getLogin());
             }
         }
     }

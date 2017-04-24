@@ -13,17 +13,17 @@ import com.globant.practice.domain.model.User;
  * Initialize the components of the fragment and manage the communication with the presenter
  */
 public class SubscriberDetailsFragment extends Fragment {
-    private User user;
+    private String nickname;
 
     /**
      * Returns a new instance of the SubscriberDetailsFragment and sets the user instance
      *
-     * @param user user instance
+     * @param nickname user nickname
      * @return new SubscriberDetailsFragment instance
      */
-    public static SubscriberDetailsFragment newInstance(User user) {
+    public static SubscriberDetailsFragment newInstance(String nickname) {
         SubscriberDetailsFragment subscriberDetailsFragment = new SubscriberDetailsFragment();
-        subscriberDetailsFragment.setUser(user);
+        subscriberDetailsFragment.setNickname(nickname);
         return subscriberDetailsFragment;
     }
 
@@ -38,18 +38,23 @@ public class SubscriberDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (user != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(user.getLogin());
-        }
         return inflater.inflate(R.layout.fragment_subscriber_details, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view,savedInstanceState);
+        if (nickname != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(nickname);
+        }
     }
 
     /**
      * Sets the user instance
      *
-     * @param user user instance
+     * @param nickname user nickname
      */
-    private void setUser(User user) {
-        this.user = user;
+    private void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

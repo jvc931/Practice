@@ -5,7 +5,10 @@ import com.globant.practice.domain.interactor.FetchUsers;
 import com.globant.practice.domain.service.GitHubApi;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.presenter.SplashPresenter;
+import com.globant.practice.presentation.presenter.SubscriberListPresenter;
+
 import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -31,15 +34,26 @@ public class PracticeModule {
     }
 
     /**
-     * Returns a unique reference of HomePresenter.
+     * Returns a unique reference of SubscriberListPresenter.
      *
      * @param interactor needs an UsersInteractor reference
+     * @return SubscriberListPresenter reference
+     */
+    @Provides
+    @Singleton
+    SubscriberListPresenter provideSubscriberListPresenter(FetchUsers interactor) {
+        return new SubscriberListPresenter(interactor);
+    }
+
+    /**
+     * Returns a unique reference of HomePresenter
+     *
      * @return HomePresenter reference
      */
     @Provides
     @Singleton
-    HomePresenter provideHomePresenter(FetchUsers interactor) {
-        return new HomePresenter(interactor);
+    HomePresenter provideHomePresenter() {
+        return new HomePresenter();
     }
 
     /**

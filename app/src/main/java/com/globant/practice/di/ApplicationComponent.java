@@ -2,6 +2,7 @@ package com.globant.practice.di;
 
 import com.globant.practice.presentation.view.activity.HomeActivity;
 import com.globant.practice.presentation.view.activity.SplashActivity;
+import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -27,4 +28,11 @@ public interface ApplicationComponent {
      * @param activity is the type HomeActivity
      */
     void inject(HomeActivity activity);
+
+    /**
+     * Inject method for the SubscriberListFragment
+     *
+     * @param fragment is the type SubscriberListFragment
+     */
+    void inject(SubscriberListFragment fragment);
 }
