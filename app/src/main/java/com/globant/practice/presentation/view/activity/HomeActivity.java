@@ -1,22 +1,14 @@
 package com.globant.practice.presentation.view.activity;
 
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.app.Fragment;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
-import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
-import com.globant.practice.presentation.view.Decoration;
-import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
-
+import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
 import javax.inject.Inject;
 
 /**
@@ -24,11 +16,8 @@ import javax.inject.Inject;
  * with the presenter.
  * Created by jonathan.vargas on 31/03/2017.
  */
-public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberAdapter.OnUserClickListener {
+public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberListFragment.SubscriberListFragmentActions {
 
-    private RecyclerView subscriberRecyclerView;
-    private ProgressDialog fetchUserIndicator;
-    private SubscriberAdapter subscriberAdapter;
     @Inject
     HomePresenter presenter;
 
@@ -42,28 +31,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
-        getSupportActionBar().setTitle(getString(R.string.large_app_name));
-        subscriberRecyclerView = (RecyclerView) findViewById(R.id.listHomeRecyclerView);
-        fetchUserIndicator = new ProgressDialog(this);
-        fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
-        fetchUserIndicator.setIndeterminate(true);
-        fetchUserIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        subscriberAdapter = new SubscriberAdapter(null, this);
-        subscriberRecyclerView.setHasFixedSize(true);
-        subscriberRecyclerView.setAdapter(subscriberAdapter);
-        subscriberRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        subscriberRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        subscriberRecyclerView.addItemDecoration(new Decoration(this, Decoration.VERTICAL_LIST));
     }
 
     /**
-     * Initializes the Api call that obtain the user list.
+     * Attach the view with the presenter.
      */
     @Override
     protected void onResume() {
         super.onResume();
         presenter.attachView(this);
-        presenter.fetchUsers();
     }
 
     /**
@@ -78,51 +54,30 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
     /**
      * Renders the view items depending of the view state
      *
-     * @param homeViewState State of the view
+     * @param homeViewState state of the view
      */
     @Override
     public void render(@NonNull HomeViewState homeViewState) {
-        if (homeViewState.isLoading()) {
-            fetchUserIndicator.show();
-        } else if (homeViewState.getUsers() != null) {
-            subscriberAdapter.setUsers(homeViewState.getUsers());
-            fetchUserIndicator.dismiss();
-        } else if (homeViewState.getError() != null) {
-            fetchUserIndicator.dismiss();
-            showErrorMessage(homeViewState.getError());
-        }
+        setFragment(homeViewState.getFragment());
     }
 
     /**
-     * Gets the error message text from the resource file
+     * Receives the login of the user selected
      *
-     * @return Error message text
+     * @param login login of the user selected
      */
     @Override
-    public String getErrorMessageText() {
-        return getString(R.string.net_error_message);
+    public void subscriberSelected(String login) {
+        presenter.subscriberSelected(login);
     }
 
     /**
-     * Shows a AlertDialog to inform at the user that the api call have an error
-     */
-    private void showErrorMessage(String message) {
-        fetchUserIndicator.dismiss();
-        new AlertDialog.Builder(this).setTitle(message)
-                .setCancelable(false).setPositiveButton(getString(R.string.accept_text), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        }).create().show();
-    }
-
-    /**
-     * Manages the user clicks
+     * Change the fragment
      *
-     * @param user User instance of the object that the user makes click
+     * @param fragment fragment instance
      */
-    @Override
-    public void onUserClick(User user) {
+    private void setFragment(Fragment fragment) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content, fragment).commit();
     }
 }

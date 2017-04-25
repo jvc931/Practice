@@ -26,9 +26,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         /**
          * Manages the user clicks
          *
-         * @param user User instance of the object that the user makes click
+         * @param login login of the user that the user makes click
          */
-        void onUserClick(User user);
+        void onUserClick(String login);
     }
 
     private List<User> users;
@@ -67,9 +67,9 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
     public SubscriberViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.subscriber_list_item, parent, false);
-        SubscriberViewHolder listHomeViewHolder = new SubscriberViewHolder(itemView);
+        SubscriberViewHolder subscriberViewHolder = new SubscriberViewHolder(itemView);
         context = parent.getContext();
-        return listHomeViewHolder;
+        return subscriberViewHolder;
     }
 
     /**
@@ -98,7 +98,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
      * Inner class that manages the items of the view
      */
     public class SubscriberViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView nickname;
+        private TextView login;
         private ImageView avatar;
         private User user;
 
@@ -109,7 +109,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
          */
         public SubscriberViewHolder(View itemView) {
             super(itemView);
-            nickname = (TextView) itemView.findViewById(R.id.userHomeTxt);
+            login = (TextView) itemView.findViewById(R.id.userHomeTxt);
             avatar = (ImageView) itemView.findViewById(R.id.userHomeImg);
             itemView.setOnClickListener(this);
         }
@@ -120,7 +120,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
          * @param user User information
          */
         public void blindSubscriberList(final User user) {
-            nickname.setText(user.getLogin());
+            login.setText(user.getLogin());
             this.user = user;
             Glide.with(context).load(user.getAvatarUrl()).centerCrop()
                     .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
@@ -134,7 +134,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         @Override
         public void onClick(View view) {
             if (onUserClickListener != null) {
-                onUserClickListener.onUserClick(user);
+                onUserClickListener.onUserClick(user.getLogin());
             }
         }
     }
