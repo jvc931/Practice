@@ -42,6 +42,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
      */
     public void subscriberSelected(String login) {
         homeViewState.setFragment(SubscriberDetailsFragment.newInstance(login));
-        view.render(homeViewState);
+        if (isViewAttached()) {
+            view.render(homeViewState);
+        }
     }
 }
