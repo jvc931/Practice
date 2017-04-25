@@ -7,23 +7,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.globant.practice.R;
-import com.globant.practice.domain.model.User;
 
 /**
  * Initialize the components of the fragment and manage the communication with the presenter
  */
 public class SubscriberDetailsFragment extends Fragment {
-    private String nickname;
+    private String login;
+    private static final String LOGIN_KEY = "login";
 
     /**
-     * Returns a new instance of the SubscriberDetailsFragment and sets the user instance
+     * Returns a new instance of the SubscriberDetailsFragment and sets the login string
      *
-     * @param nickname user nickname
+     * @param login user login
      * @return new SubscriberDetailsFragment instance
      */
-    public static SubscriberDetailsFragment newInstance(String nickname) {
+    public static SubscriberDetailsFragment newInstance(String login) {
         SubscriberDetailsFragment subscriberDetailsFragment = new SubscriberDetailsFragment();
-        subscriberDetailsFragment.setNickname(nickname);
+        Bundle bundle = new Bundle();
+        bundle.putString(LOGIN_KEY, login);
+        subscriberDetailsFragment.setArguments(bundle);
         return subscriberDetailsFragment;
     }
 
@@ -42,19 +44,11 @@ public class SubscriberDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
-        if (nickname != null) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(nickname);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        login = getArguments().getString(LOGIN_KEY);
+        if (login != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(login);
         }
-    }
-
-    /**
-     * Sets the user instance
-     *
-     * @param nickname user nickname
-     */
-    private void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 }

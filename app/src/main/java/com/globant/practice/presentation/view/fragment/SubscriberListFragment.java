@@ -161,17 +161,17 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     /**
      * Manages the user click on the subscriberRecyclerView
      *
-     * @param nickname nickname of the user that the user makes click
+     * @param login login of the user that the user makes click
      */
     @Override
-    public void onUserClick(String nickname) {
-        subscriberListFragmentActions.subscriberSelected(nickname);
+    public void onUserClick(String login) {
+        subscriberListFragmentActions.subscriberSelected(login);
     }
 
     /**
      * Works to communicate the Fragment with the Activity
      */
     public interface SubscriberListFragmentActions {
-        void subscriberSelected(String nickname);
+        void subscriberSelected(String login);
     }
 }

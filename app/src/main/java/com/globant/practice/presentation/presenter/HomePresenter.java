@@ -36,12 +36,12 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Receives the nickname of the user selected
+     * Receives the login of the user selected
      *
-     * @param nickname nickname of the user
+     * @param login login of the user
      */
-    public void subscriberSelected(String nickname) {
-        homeViewState.setFragment(SubscriberDetailsFragment.newInstance(nickname));
+    public void subscriberSelected(String login) {
+        homeViewState.setFragment(SubscriberDetailsFragment.newInstance(login));
         view.render(homeViewState);
     }
 }

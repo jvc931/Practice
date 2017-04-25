@@ -8,7 +8,7 @@ import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
-
+import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
 import javax.inject.Inject;
 
 /**
@@ -16,7 +16,7 @@ import javax.inject.Inject;
  * with the presenter.
  * Created by jonathan.vargas on 31/03/2017.
  */
-public class HomeActivity extends AppCompatActivity implements HomeView, com.globant.practice.presentation.view.fragment.SubscriberListFragment.SubscriberListFragmentActions {
+public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberListFragment.SubscriberListFragmentActions {
 
     @Inject
     HomePresenter presenter;
@@ -62,13 +62,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView, com.glo
     }
 
     /**
-     * Receives the nickname of the user selected
+     * Receives the login of the user selected
      *
-     * @param nickname nickname of the user selected
+     * @param login login of the user selected
      */
     @Override
-    public void subscriberSelected(String nickname) {
-        presenter.subscriberSelected(nickname);
+    public void subscriberSelected(String login) {
+        presenter.subscriberSelected(login);
     }
 
     /**
