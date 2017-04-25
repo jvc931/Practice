@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SubscriberListPresenter extends BasePresenter<SubscriberListView> {
     private FetchUsers interactor;
-    private Observable<List<User>> getUsersListObservable;
+    private Observable<List<User>> userListObservable;
     private List<User> userList;
     private SubscriberListState subscriberListState;
 
@@ -46,8 +46,8 @@ public class SubscriberListPresenter extends BasePresenter<SubscriberListView> {
             if (isViewAttached()) {
                 view.render(subscriberListState);
             }
-            getUsersListObservable = interactor.execute();
-            getUsersListObservable.subscribeOn(Schedulers.newThread())
+            userListObservable = interactor.execute();
+            userListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getUsersListSubscriber);
         } else if (userList != null) {

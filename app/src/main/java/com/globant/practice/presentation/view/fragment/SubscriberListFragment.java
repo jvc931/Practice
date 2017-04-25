@@ -20,7 +20,6 @@ import com.globant.practice.presentation.model.SubscriberListState;
 import com.globant.practice.presentation.presenter.SubscriberListPresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberAdapter;
-
 import javax.inject.Inject;
 
 /**
@@ -31,7 +30,6 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     private RecyclerView subscriberRecyclerView;
     private ProgressDialog fetchUserIndicator;
     private SubscriberAdapter subscriberAdapter;
-    private View view;
     private SubscriberListFragmentActions subscriberListFragmentActions;
     @Inject
     SubscriberListPresenter presenter;
@@ -69,7 +67,6 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.view = view;
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.large_app_name);
         subscriberRecyclerView = (RecyclerView) view.findViewById(R.id.subscriberRecyclerView);
         fetchUserIndicator = new ProgressDialog(view.getContext());
@@ -102,7 +99,7 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof SubscriberListFragmentActions) {
+        if (getActivity() instanceof SubscriberListFragmentActions) {
             subscriberListFragmentActions = (SubscriberListFragmentActions) context;
         }
     }
@@ -149,7 +146,7 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
      */
     private void showErrorMessage(String message) {
         fetchUserIndicator.dismiss();
-        new AlertDialog.Builder(view.getContext()).setTitle(message)
+        new AlertDialog.Builder(getView().getContext()).setTitle(message)
                 .setCancelable(false).setPositiveButton(getString(R.string.accept_text), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -165,7 +162,9 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
      */
     @Override
     public void onUserClick(String login) {
-        subscriberListFragmentActions.subscriberSelected(login);
+        if (subscriberListFragmentActions != null) {
+            subscriberListFragmentActions.subscriberSelected(login);
+        }
     }
 
     /**

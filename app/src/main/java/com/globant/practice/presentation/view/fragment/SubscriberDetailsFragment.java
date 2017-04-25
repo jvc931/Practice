@@ -47,7 +47,7 @@ public class SubscriberDetailsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         login = getArguments().getString(LOGIN_KEY);
-        if (login != null) {
+        if (!login.isEmpty()) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(login);
         }
     }
