@@ -100,7 +100,7 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     public void onAttach(Context context) {
         super.onAttach(context);
         if (getActivity() instanceof SubscriberListFragmentActions) {
-            subscriberListFragmentActions = (SubscriberListFragmentActions) context;
+            subscriberListFragmentActions = (SubscriberListFragmentActions) getActivity();
         }
     }
 
