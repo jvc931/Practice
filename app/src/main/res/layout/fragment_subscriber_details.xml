@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/layout_padding"
+    android:paddingRight="@dimen/layout_padding"
     tools:context="com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment">
 
 </FrameLayout>

@@ -70,7 +70,7 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.large_app_name);
         subscriberRecyclerView = (RecyclerView) view.findViewById(R.id.subscriberRecyclerView);
         fetchUserIndicator = new ProgressDialog(view.getContext());
-        fetchUserIndicator.setMessage(getString(R.string.home_progress_dialog));
+        fetchUserIndicator.setMessage(getString(R.string.subscriberlist_progress_dialog));
         fetchUserIndicator.setIndeterminate(true);
         fetchUserIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         subscriberAdapter = new SubscriberAdapter(null, this);
