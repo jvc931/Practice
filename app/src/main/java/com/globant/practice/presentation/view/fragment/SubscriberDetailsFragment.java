@@ -83,7 +83,7 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     public void onResume() {
         super.onResume();
         presenter.attachView(this);
-        presenter.fetchSubscriberDetails(login);
+        presenter.fetchSubscriberDetails();
     }
 
     /**
@@ -105,6 +105,7 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
         if (subscriberDetailsState.isLoading()) {
             fetchSubscriberDetailsIndicator.show();
         } else if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
+            //TODO show the subscriber details on a recycler view and dismiss the loading message
         } else if (subscriberDetailsState.getError() != null) {
             fetchSubscriberDetailsIndicator.dismiss();
             showErrorMessage(subscriberDetailsState.getError());
@@ -119,6 +120,16 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     @Override
     public String getErrorMessageText() {
         return getString(R.string.net_error_message);
+    }
+
+    /**
+     * Returns the subscriber login attribute
+     *
+     * @return subscriber login
+     */
+    @Override
+    public String getSubscriberLogin() {
+        return login;
     }
 
     /**

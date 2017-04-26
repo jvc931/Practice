@@ -22,4 +22,11 @@ public interface SubscriberDetailsView extends BaseView {
      * @return Error message text
      */
     String getErrorMessageText();
+
+    /**
+     * Returns the subscriber login attribute
+     *
+     * @return subscriber login
+     */
+    String getSubscriberLogin();
 }
