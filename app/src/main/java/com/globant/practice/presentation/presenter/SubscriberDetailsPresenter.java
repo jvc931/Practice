@@ -63,6 +63,9 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
             subscriberDetailsState.setProfile(null);
             subscriberDetailsState.setSubscriberRepositories(null);
             subscriberDetailsState.setLoading(true);
+            if (isViewAttached()) {
+                view.render(subscriberDetailsState);
+            }
             this.login = login;
             subscriberProfileObservable = profileInteractor.execute(login);
             subscriberProfileObservable.subscribeOn(Schedulers.newThread())
