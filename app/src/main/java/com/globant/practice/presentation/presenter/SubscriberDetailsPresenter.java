@@ -118,9 +118,12 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
     }
 
     /**
-     * Makes the call to obtain the subscriber details
+     * Makes the call to obtain the subscriber details and receive the subscriber login
+     *
+     * @param login subscriber login
      */
-    public void fetchSubscriberDetails() {
+    public void fetchSubscriberDetails(String login) {
+        subscriberDetailsState.setLogin(login);
         if (subscriberDetailsState.isLoading() && subscriberProfile != null && subscriberRepositories != null) {
             subscriberDetailsState.setError(null);
             subscriberDetailsState.setProfile(subscriberProfile);
@@ -136,7 +139,7 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
             subscriberDetailsState.setLoading(true);
             if (isViewAttached()) {
                 view.render(subscriberDetailsState);
-                subscriberProfileObservable = profileInteractor.execute(view.getSubscriberLogin());
+                subscriberProfileObservable = profileInteractor.execute(subscriberDetailsState.getLogin());
                 subscriberProfileObservable.subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(getSubscriberProfile);
@@ -149,7 +152,7 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
      */
     private void fetchSubscriberRepositories() {
         if (isViewAttached()) {
-            subscriberRepositoryListObservable = repositoriesInteractor.execute(view.getSubscriberLogin());
+            subscriberRepositoryListObservable = repositoriesInteractor.execute(subscriberDetailsState.getLogin());
             subscriberRepositoryListObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getSubscriberRepositories);

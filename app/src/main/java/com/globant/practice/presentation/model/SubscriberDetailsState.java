@@ -15,6 +15,7 @@ public class SubscriberDetailsState {
     private Profile profile;
     private List<Repository> subscriberRepositories;
     private boolean loading;
+    private String login;
 
     /**
      * Sets the error message
@@ -53,6 +54,15 @@ public class SubscriberDetailsState {
     }
 
     /**
+     * Sets the subscriber login
+     *
+     * @param login subscriber login
+     */
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    /**
      * Returns the error message
      *
      * @return error message
@@ -86,5 +96,14 @@ public class SubscriberDetailsState {
      */
     public boolean isLoading() {
         return loading;
+    }
+
+    /**
+     * Returns the subscriber login
+     *
+     * @return subscriber login
+     */
+    public String getLogin() {
+        return login;
     }
 }

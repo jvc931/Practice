@@ -14,14 +14,12 @@ import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.presentation.model.SubscriberDetailsState;
 import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
-
 import javax.inject.Inject;
 
 /**
  * Initialize the components of the fragment and manage the communication with the presenter
  */
 public class SubscriberDetailsFragment extends Fragment implements SubscriberDetailsView {
-    private String login;
     private static final String LOGIN_KEY = "login";
     private ProgressDialog fetchSubscriberDetailsIndicator;
 
@@ -66,9 +64,8 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        login = getArguments().getString(LOGIN_KEY);
-        if (!login.isEmpty()) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(login);
+        if (!getArguments().getString(LOGIN_KEY).isEmpty()) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(LOGIN_KEY));
         }
         fetchSubscriberDetailsIndicator = new ProgressDialog(view.getContext());
         fetchSubscriberDetailsIndicator.setMessage(getString(R.string.subscriberdetails_progress_dialog));
@@ -77,13 +74,14 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     }
 
     /**
-     * Attach the view to the presenter and fetch the subscriber details
+     * Attach the view to the presenter and fetch the subscriber details sending the subscriber
+     * login
      */
     @Override
     public void onResume() {
         super.onResume();
         presenter.attachView(this);
-        presenter.fetchSubscriberDetails();
+        presenter.fetchSubscriberDetails(getArguments().getString(LOGIN_KEY));
     }
 
     /**
@@ -120,16 +118,6 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     @Override
     public String getErrorMessageText() {
         return getString(R.string.net_error_message);
-    }
-
-    /**
-     * Returns the subscriber login attribute
-     *
-     * @return subscriber login
-     */
-    @Override
-    public String getSubscriberLogin() {
-        return login;
     }
 
     /**
