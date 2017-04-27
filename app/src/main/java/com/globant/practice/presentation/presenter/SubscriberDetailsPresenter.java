@@ -1,7 +1,7 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.domain.interactor.FetchSubscriberProfile;
-import com.globant.practice.domain.interactor.FetchSubscriberRepositories;
+import com.globant.practice.domain.interactor.FetchSubscriberProfileInteractor;
+import com.globant.practice.domain.interactor.FetchSubscriberRepositoriesInteractor;
 import com.globant.practice.domain.model.Profile;
 import com.globant.practice.domain.model.Repository;
 import com.globant.practice.presentation.model.SubscriberDetailsState;
@@ -23,8 +23,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsView> {
-    private FetchSubscriberProfile profileInteractor;
-    private FetchSubscriberRepositories repositoriesInteractor;
+    private FetchSubscriberProfileInteractor profileInteractor;
+    private FetchSubscriberRepositoriesInteractor repositoriesInteractor;
     private Observable<Profile> subscriberProfileObservable;
     private Observable<List<Repository>> subscriberRepositoryListObservable;
     private SubscriberDetailsState subscriberDetailsState;
@@ -103,15 +103,15 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
     };
 
     /**
-     * Construct method of the SubscriberDetailsPresenter, receives a FetchSubscriberProfile and
-     * FetchSubscriberRepositories instance for manage the subscriber data and initializes the
+     * Construct method of the SubscriberDetailsPresenter, receives a FetchSubscriberProfileInteractor and
+     * FetchSubscriberRepositoriesInteractor instance for manage the subscriber data and initializes the
      * subscriberDetailsState for manage the states of the view.
      *
-     * @param profileInteractor      FetchSubscriberProfile instance
-     * @param repositoriesInteractor FetchSubscriberRepositories instance
+     * @param profileInteractor      FetchSubscriberProfileInteractor instance
+     * @param repositoriesInteractor FetchSubscriberRepositoriesInteractor instance
      */
     @Inject
-    public SubscriberDetailsPresenter(FetchSubscriberProfile profileInteractor, FetchSubscriberRepositories repositoriesInteractor) {
+    public SubscriberDetailsPresenter(FetchSubscriberProfileInteractor profileInteractor, FetchSubscriberRepositoriesInteractor repositoriesInteractor) {
         this.profileInteractor = profileInteractor;
         this.repositoriesInteractor = repositoriesInteractor;
         subscriberDetailsState = new SubscriberDetailsState();

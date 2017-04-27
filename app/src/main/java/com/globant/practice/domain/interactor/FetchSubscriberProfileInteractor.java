@@ -10,16 +10,16 @@ import io.reactivex.Observable;
  * Created by jonathan.vargas on 26/04/2017.
  */
 
-public class FetchSubscriberProfile {
+public class FetchSubscriberProfileInteractor {
     private GitHubApi apiClient;
 
     /**
-     * Construct method of FetchSubscriberProfile that receives a GithubApi reference.
+     * Construct method of FetchSubscriberProfileInteractor that receives a GithubApi reference.
      *
      * @param apiClient GitHubApi reference
      */
     @Inject
-    public FetchSubscriberProfile(GitHubApi apiClient) {
+    public FetchSubscriberProfileInteractor(GitHubApi apiClient) {
         this.apiClient = apiClient;
     }
 

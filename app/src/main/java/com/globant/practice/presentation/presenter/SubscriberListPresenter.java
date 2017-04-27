@@ -1,6 +1,6 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.domain.interactor.FetchUsers;
+import com.globant.practice.domain.interactor.FetchUsersInteractor;
 import com.globant.practice.domain.model.User;
 import com.globant.practice.presentation.model.SubscriberListState;
 import com.globant.practice.presentation.view.fragment.SubscriberListView;
@@ -18,19 +18,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class SubscriberListPresenter extends BasePresenter<SubscriberListView> {
-    private FetchUsers interactor;
+    private FetchUsersInteractor interactor;
     private Observable<List<User>> userListObservable;
     private List<User> userList;
     private SubscriberListState subscriberListState;
 
     /**
-     * Construct method of the SubscriberListPresenter, receives a FetchUsers instance for
+     * Construct method of the SubscriberListPresenter, receives a FetchUsersInteractor instance for
      * manage the user data and SubscriberListState instance for manage the states of the view.
      *
      * @param interactor
      */
     @Inject
-    public SubscriberListPresenter(FetchUsers interactor) {
+    public SubscriberListPresenter(FetchUsersInteractor interactor) {
         this.interactor = interactor;
         subscriberListState = new SubscriberListState();
     }
