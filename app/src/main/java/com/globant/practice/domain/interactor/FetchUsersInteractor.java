@@ -11,19 +11,19 @@ import io.reactivex.Observable;
  * Created by jonathan.vargas on 4/04/2017.
  */
 
-public class FetchUsers {
+public class FetchUsersInteractor {
 
     private GitHubApi apiClient;
     private static final String LOGIN = "googlesamples";
     private static final String REPO = "android-architecture";
 
     /**
-     * Construct method of FetchUsers that receives a GithubApi reference.
+     * Construct method of FetchUsersInteractor that receives a GithubApi reference.
      *
      * @param apiClient GitHubApi reference
      */
     @Inject
-    public FetchUsers(GitHubApi apiClient) {
+    public FetchUsersInteractor(GitHubApi apiClient) {
         this.apiClient = apiClient;
     }
 

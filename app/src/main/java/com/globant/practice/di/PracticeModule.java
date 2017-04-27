@@ -1,14 +1,15 @@
 package com.globant.practice.di;
 
 import com.globant.practice.BuildConfig;
-import com.globant.practice.domain.interactor.FetchUsers;
+import com.globant.practice.domain.interactor.FetchSubscriberProfileInteractor;
+import com.globant.practice.domain.interactor.FetchSubscriberRepositoriesInteractor;
+import com.globant.practice.domain.interactor.FetchUsersInteractor;
 import com.globant.practice.domain.service.GitHubApi;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.presenter.SplashPresenter;
+import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
 import com.globant.practice.presentation.presenter.SubscriberListPresenter;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
@@ -41,7 +42,7 @@ public class PracticeModule {
      */
     @Provides
     @Singleton
-    SubscriberListPresenter provideSubscriberListPresenter(FetchUsers interactor) {
+    SubscriberListPresenter provideSubscriberListPresenter(FetchUsersInteractor interactor) {
         return new SubscriberListPresenter(interactor);
     }
 
@@ -54,6 +55,19 @@ public class PracticeModule {
     @Singleton
     HomePresenter provideHomePresenter() {
         return new HomePresenter();
+    }
+
+    /**
+     * Returns a unique reference of SubscriberDetailsPresenter
+     *
+     * @param profileInteractor      needs a profileInteractor reference
+     * @param repositoriesInteractor needs a repositoriesInteractor reference
+     * @return SubscriberDetailsPresenter reference
+     */
+    @Provides
+    @Singleton
+    SubscriberDetailsPresenter provideSubscriberDetailsPresenter(FetchSubscriberProfileInteractor profileInteractor, FetchSubscriberRepositoriesInteractor repositoriesInteractor) {
+        return new SubscriberDetailsPresenter(profileInteractor, repositoriesInteractor);
     }
 
     /**

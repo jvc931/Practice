@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Practice</string>
     <string name="large_app_name">GitHub Subscriber App</string>
-    <string name="home_progress_dialog">Getting users please wait</string>
+    <string name="subscriberlist_progress_dialog">Getting users, please wait</string>
     <string name="accept_text">Accept</string>
     <string name="net_error_message">Couldn\'t get information from the server, please try later.</string>
+    <string name="subscriberdetails_progress_dialog">Getting subscriber details, please wait</string>
 </resources>
