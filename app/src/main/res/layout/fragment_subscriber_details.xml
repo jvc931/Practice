@@ -6,4 +6,8 @@
     android:paddingRight="@dimen/layout_padding"
     tools:context="com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/subscriber_details_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </FrameLayout>
