@@ -149,7 +149,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
          */
         public SubscriberDetailsViewHolder(View itemView) {
             super(itemView);
-            if (itemView.getTag().equals(R.string.subscriber_details_profile_layout_tag)) {
+            if (itemView.getTag().equals(context.getString(R.string.subscriber_details_profile_layout_tag))) {
                 avatar = (ImageView) itemView.findViewById(R.id.subscriber_profile_avatar);
                 name = (TextView) itemView.findViewById(R.id.subscriber_details_name);
                 location = (TextView) itemView.findViewById(R.id.subscriber_details_location);
@@ -199,11 +199,11 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
          */
         @Override
         public void onClick(View view) {
-            if (view.getTag().equals(R.string.subscriber_details_layout_tag)) {
+            if (view.getTag().equals(context.getString(R.string.subscriber_details_layout_tag))) {
                 if (onUserClickListener != null) {
                     onUserClickListener.onRepositoryClick(repository.getHtmlUrl());
                 }
-            } else if (view.getTag().equals(R.string.subscriber_details_name_txt_tag)) {
+            } else if (view.getTag().equals(context.getString(R.string.subscriber_details_name_txt_tag))) {
                 if (onUserClickListener != null) {
                     onUserClickListener.onProfileNameClick(profile.getHtmlUrl());
                 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="220dp"
     android:orientation="vertical"
-    android:tag="profile">
+    android:tag="@string/subscriber_details_profile_layout_tag">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -19,6 +19,7 @@ import com.globant.practice.presentation.model.SubscriberDetailsState;
 import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberDetailsAdapter;
+
 import javax.inject.Inject;
 
 /**
