@@ -43,6 +43,8 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
     private Profile profile;
     private SubscriberDetailsAdapter.OnUserClickListener onUserClickListener;
     private Context context;
+    private static final int SUBSCRIBER_PROFILE_ITEM = 0;
+    private static final int SUBSCRIBER_REPOSITORY_ITEM = 1;
 
     /**
      * Construct method of the SubscriberAdapter
@@ -125,7 +127,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
      */
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? 0 : 1;
+        return position == 0 ? SUBSCRIBER_PROFILE_ITEM : SUBSCRIBER_REPOSITORY_ITEM;
     }
 
     /**
@@ -169,16 +171,24 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
         public void blindSubscriberDetails() {
             Glide.with(context).load(profile.getAvatarUrl()).centerCrop()
                     .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
-            if (profile.getName().isEmpty()) {
+            if (profile.getName() == null) {
                 name.setText(profile.getLogin());
             } else {
                 name.setText(profile.getName());
             }
-            location.setText(profile.getLocation());
-            company.setText(profile.getCompany());
-            followers.setText(String.valueOf(profile.getFollowers()));
-            following.setText(String.valueOf(profile.getFollowing()));
-            publicRepos.setText(String.valueOf(profile.getPublicRepos()));
+            if (profile.getLocation() == null) {
+                location.setText(context.getString(R.string.subscriber_details_location));
+            } else {
+                location.setText(context.getString(R.string.subscriber_details_location) + " " + profile.getLocation());
+            }
+            if (profile.getCompany() == null) {
+                company.setText(context.getString(R.string.subscriber_details_company_txt));
+            } else {
+                company.setText(context.getString(R.string.subscriber_details_company_txt) + " " + profile.getCompany());
+            }
+            followers.setText(context.getString(R.string.subscriber_details_followers) + " " + String.valueOf(profile.getFollowers()));
+            following.setText(context.getString(R.string.subscriber_details_following) + " " + String.valueOf(profile.getFollowing()));
+            publicRepos.setText(context.getString(R.string.subscriber_details_publicrepos) + " " + String.valueOf(profile.getPublicRepos()));
             name.setOnClickListener(this);
         }
 
