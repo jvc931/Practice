@@ -6,95 +6,88 @@
     android:orientation="vertical"
     android:tag="@string/subscriber_details_profile_layout_tag">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.4"
-        android:orientation="horizontal">
+        android:paddingBottom="@dimen/layout_padding">
 
         <ImageView
             android:id="@+id/subscriber_profile_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:paddingBottom="@dimen/layout_padding"
+            android:layout_width="@dimen/subscriber_profile_img_dimen"
+            android:layout_height="@dimen/subscriber_profile_img_dimen"
+            android:layout_alignParentLeft="true"
             android:paddingRight="@dimen/layout_padding"
             android:paddingTop="@dimen/layout_padding"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3"
-            android:orientation="vertical"
-            android:weightSum="6">
+        <TextView
+            android:id="@+id/subscriber_details_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/subscriber_profile_avatar"
+            android:gravity="center"
+            android:tag="@string/subscriber_details_name_txt_tag"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/subscriber_details_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:tag="@string/subscriber_details_name_txt_tag"
-                android:textAppearance="@android:style/TextAppearance.Large"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/subscriber_details_location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/subscriber_profile_avatar"
+            android:gravity="center_vertical"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
 
-            <TextView
-                android:id="@+id/subscriber_details_location"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:textAppearance="@android:style/TextAppearance.Medium" />
+        <TextView
+            android:id="@+id/subscriber_details_company"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/subscriber_profile_avatar"
+            android:gravity="center_vertical"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
 
-            <TextView
-                android:id="@+id/subscriber_details_company"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:textAppearance="@android:style/TextAppearance.Medium" />
+    </RelativeLayout>
 
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.6"
-        android:orientation="vertical">
+        android:layout_weight="0.6">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/subscriber_details_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
 
-            <TextView
-                android:id="@+id/subscriber_details_followers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:gravity="center_vertical"
-                android:textAppearance="@android:style/TextAppearance.Medium"/>
-
-            <TextView
-                android:id="@+id/subscriber_details_following"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:gravity="center_vertical"
-                android:textAppearance="@android:style/TextAppearance.Medium" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/subscriber_details_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/subscriber_details_followers"
+            android:gravity="right|center_vertical"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
 
         <TextView
             android:id="@+id/subscriber_details_publicrepos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/subscriber_details_following"
             android:gravity="center"
             android:textAppearance="@android:style/TextAppearance.Medium" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.globant.practice.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
     private Context context;
     private static final int SUBSCRIBER_PROFILE_ITEM = 0;
     private static final int SUBSCRIBER_REPOSITORY_ITEM = 1;
+    private static final int INDEX_ZERO = 0;
 
     /**
      * Construct method of the SubscriberAdapter
@@ -88,7 +90,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
             return subscriberDetailsViewHolder;
         } else {
             View itemView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.subscriber_repositories_item, parent, false);
+                    .inflate(R.layout.subscriber_repository_item, parent, false);
             SubscriberDetailsViewHolder subscriberDetailsViewHolder = new SubscriberDetailsAdapter.SubscriberDetailsViewHolder(itemView);
             return subscriberDetailsViewHolder;
         }
@@ -127,7 +129,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
      */
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? SUBSCRIBER_PROFILE_ITEM : SUBSCRIBER_REPOSITORY_ITEM;
+        return position == INDEX_ZERO ? SUBSCRIBER_PROFILE_ITEM : SUBSCRIBER_REPOSITORY_ITEM;
     }
 
     /**
@@ -171,17 +173,17 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
         public void blindSubscriberDetails() {
             Glide.with(context).load(profile.getAvatarUrl()).centerCrop()
                     .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
-            if (profile.getName() == null) {
+            if (TextUtils.isEmpty(profile.getName())) {
                 name.setText(profile.getLogin());
             } else {
                 name.setText(profile.getName());
             }
-            if (profile.getLocation() == null) {
+            if (TextUtils.isEmpty(profile.getLocation())) {
                 location.setText(context.getString(R.string.subscriber_details_location));
             } else {
                 location.setText(context.getString(R.string.subscriber_details_location) + " " + profile.getLocation());
             }
-            if (profile.getCompany() == null) {
+            if (TextUtils.isEmpty(profile.getCompany())) {
                 company.setText(context.getString(R.string.subscriber_details_company_txt));
             } else {
                 company.setText(context.getString(R.string.subscriber_details_company_txt) + " " + profile.getCompany());
