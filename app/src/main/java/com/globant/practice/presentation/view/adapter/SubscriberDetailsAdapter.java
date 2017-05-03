@@ -151,7 +151,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
          */
         public SubscriberDetailsViewHolder(View itemView) {
             super(itemView);
-            if (itemView.getTag().equals(context.getString(R.string.subscriber_details_profile_layout_tag))) {
+            if (itemView.getTag() != null && itemView.getTag().equals(context.getString(R.string.subscriber_details_profile_layout_tag))) {
                 avatar = (ImageView) itemView.findViewById(R.id.subscriber_profile_avatar);
                 name = (TextView) itemView.findViewById(R.id.subscriber_details_name);
                 location = (TextView) itemView.findViewById(R.id.subscriber_details_location);
@@ -159,6 +159,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
                 followers = (TextView) itemView.findViewById(R.id.subscriber_details_followers);
                 following = (TextView) itemView.findViewById(R.id.subscriber_details_following);
                 publicRepos = (TextView) itemView.findViewById(R.id.subscriber_details_publicrepos);
+                name.setOnClickListener(this);
             } else {
                 name = (TextView) itemView.findViewById(R.id.subscriber_details_repo_name);
                 itemView.setOnClickListener(this);
@@ -177,7 +178,6 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
             followers.setText(String.format(context.getString(R.string.subscriber_details_followers), profile.getFollowers()));
             following.setText(String.format(context.getString(R.string.subscriber_details_following), profile.getFollowing()));
             publicRepos.setText(String.format(context.getString(R.string.subscriber_details_publicrepos), profile.getPublicRepos()));
-            name.setOnClickListener(this);
         }
 
         /**
