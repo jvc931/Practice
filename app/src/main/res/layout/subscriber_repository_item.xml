@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/subscriber_repository_item_height"
-    android:tag="@string/subscriber_details_layout_tag">
-
+    android:id="@+id/subscriber_repository_item_layout">
     <TextView
         android:id="@+id/subscriber_repository_title"
         android:layout_width="wrap_content"

@@ -30,7 +30,6 @@
             android:layout_toRightOf="@id/subscriber_profile_avatar"
             android:gravity="center"
             android:paddingBottom="@dimen/layout_padding"
-            android:tag="@string/subscriber_details_name_txt_tag"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textStyle="bold" />
 

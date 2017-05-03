@@ -83,16 +83,14 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
     @Override
     public SubscriberDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        if (viewType == 0) {
+        if (viewType == SUBSCRIBER_PROFILE_ITEM) {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.subscriber_profile_item, parent, false);
-            SubscriberDetailsViewHolder subscriberDetailsViewHolder = new SubscriberDetailsAdapter.SubscriberDetailsViewHolder(itemView);
-            return subscriberDetailsViewHolder;
+            return new SubscriberDetailsAdapter.SubscriberDetailsViewHolder(itemView);
         } else {
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.subscriber_repository_item, parent, false);
-            SubscriberDetailsViewHolder subscriberDetailsViewHolder = new SubscriberDetailsAdapter.SubscriberDetailsViewHolder(itemView);
-            return subscriberDetailsViewHolder;
+            return new SubscriberDetailsAdapter.SubscriberDetailsViewHolder(itemView);
         }
     }
 
@@ -104,7 +102,7 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
      */
     @Override
     public void onBindViewHolder(SubscriberDetailsViewHolder holder, int position) {
-        if (position == 0) {
+        if (position == INDEX_ZERO) {
             holder.blindSubscriberDetails();
         } else {
             holder.blindSubscriberDetails(subscriberRepositories.get(position - 1));
@@ -200,10 +198,13 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
         @Override
         public void onClick(View view) {
             if (onUserClickListener != null) {
-                if (view.getTag().equals(context.getString(R.string.subscriber_details_layout_tag))) {
-                    onUserClickListener.onRepositoryClick(repository.getHtmlUrl());
-                } else if (view.getTag().equals(context.getString(R.string.subscriber_details_name_txt_tag))) {
-                    onUserClickListener.onProfileNameClick(profile.getHtmlUrl());
+                switch (view.getId()) {
+                    case R.id.subscriber_repository_item_layout:
+                        onUserClickListener.onRepositoryClick(repository.getHtmlUrl());
+                        break;
+                    case R.id.subscriber_details_name:
+                        onUserClickListener.onProfileNameClick(profile.getHtmlUrl());
+                        break;
                 }
             }
         }
