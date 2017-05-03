@@ -173,16 +173,12 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
         public void blindSubscriberDetails() {
             Glide.with(context).load(profile.getAvatarUrl()).centerCrop()
                     .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
-            if (TextUtils.isEmpty(profile.getName())) {
-                name.setText(profile.getLogin());
-            } else {
-                name.setText(profile.getName());
-            }
-            location.setText(String.format(context.getString(R.string.subscriber_details_location), profile.getLocation() != null ? profile.getLocation() : ""));
-            company.setText(String.format(context.getString(R.string.subscriber_details_company_txt), profile.getCompany() != null ? profile.getCompany() : ""));
-            followers.setText(context.getString(R.string.subscriber_details_followers) + " " + String.valueOf(profile.getFollowers()));
-            following.setText(context.getString(R.string.subscriber_details_following) + " " + String.valueOf(profile.getFollowing()));
-            publicRepos.setText(context.getString(R.string.subscriber_details_publicrepos) + " " + String.valueOf(profile.getPublicRepos()));
+            name.setText(!TextUtils.isEmpty(profile.getName()) ? profile.getName() : profile.getLogin());
+            location.setText(String.format(context.getString(R.string.subscriber_details_location), !TextUtils.isEmpty(profile.getLocation()) ? profile.getLocation() : ""));
+            company.setText(String.format(context.getString(R.string.subscriber_details_company_txt), !TextUtils.isEmpty(profile.getCompany()) ? profile.getCompany() : ""));
+            followers.setText(String.format(context.getString(R.string.subscriber_details_followers), profile.getFollowers()));
+            following.setText(String.format(context.getString(R.string.subscriber_details_following), profile.getFollowing()));
+            publicRepos.setText(String.format(context.getString(R.string.subscriber_details_publicrepos), profile.getPublicRepos()));
             name.setOnClickListener(this);
         }
 

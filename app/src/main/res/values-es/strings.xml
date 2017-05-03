@@ -7,8 +7,8 @@
     <string name="subscriberdetails_progress_dialog">Obteniendo detalles del suscriptor, por favor espere</string>
     <string name="subscriber_details_item_txt_title">Repositorio:</string>
     <string name="subscriber_details_company_txt">Compañia: %s</string>
-    <string name="subscriber_details_followers">Seguidores:</string>
-    <string name="subscriber_details_following">Siguiendo:</string>
-    <string name="subscriber_details_publicrepos">Repositorios:</string>
+    <string name="subscriber_details_followers">Seguidores: %d</string>
+    <string name="subscriber_details_following">Siguiendo: %d</string>
+    <string name="subscriber_details_publicrepos">Repositorios: %d</string>
     <string name="subscriber_details_location">Ubicación: %s</string>
 </resources>
