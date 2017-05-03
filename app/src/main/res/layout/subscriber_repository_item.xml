@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/subscriber_repository_item_height"
+    android:id="@+id/subscriber_repository_item_layout">
+    <TextView
+        android:id="@+id/subscriber_repository_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="right|center_vertical"
+        android:paddingRight="@dimen/layout_padding"
+        android:text="@string/subscriber_details_item_txt_title"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subscriber_details_repo_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/subscriber_repository_title"
+        android:gravity="center_vertical"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+</RelativeLayout>

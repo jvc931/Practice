@@ -5,4 +5,10 @@
     <string name="accept_text">Aceptar</string>
     <string name="net_error_message">No se pudo obtener la información del servidor. por favor intente más tarde.</string>
     <string name="subscriberdetails_progress_dialog">Obteniendo detalles del suscriptor, por favor espere</string>
+    <string name="subscriber_details_item_txt_title">Repositorio:</string>
+    <string name="subscriber_details_company_txt">Compañia: %s</string>
+    <string name="subscriber_details_followers">Seguidores: %d</string>
+    <string name="subscriber_details_following">Siguiendo: %d</string>
+    <string name="subscriber_details_publicrepos">Repositorios: %d</string>
+    <string name="subscriber_details_location">Ubicación: %s</string>
 </resources>

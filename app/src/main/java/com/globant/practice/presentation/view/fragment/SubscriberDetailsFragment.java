@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +17,19 @@ import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.presentation.model.SubscriberDetailsState;
 import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
+import com.globant.practice.presentation.view.Decoration;
+import com.globant.practice.presentation.view.adapter.SubscriberDetailsAdapter;
+
 import javax.inject.Inject;
 
 /**
  * Initialize the components of the fragment and manage the communication with the presenter
  */
-public class SubscriberDetailsFragment extends Fragment implements SubscriberDetailsView {
+public class SubscriberDetailsFragment extends Fragment implements SubscriberDetailsView, SubscriberDetailsAdapter.OnUserClickListener {
     private static final String LOGIN_KEY = "login";
     private ProgressDialog fetchSubscriberDetailsIndicator;
-
+    private RecyclerView subscriberDetailsRecyclerView;
+    private SubscriberDetailsAdapter subscriberDetailsAdapter;
     @Inject
     SubscriberDetailsPresenter presenter;
 
@@ -71,6 +78,13 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
         fetchSubscriberDetailsIndicator.setMessage(getString(R.string.subscriberdetails_progress_dialog));
         fetchSubscriberDetailsIndicator.setIndeterminate(true);
         fetchSubscriberDetailsIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        subscriberDetailsRecyclerView = (RecyclerView) view.findViewById(R.id.subscriber_details_recyclerview);
+        subscriberDetailsAdapter = new SubscriberDetailsAdapter(null, null, this);
+        subscriberDetailsRecyclerView.setHasFixedSize(true);
+        subscriberDetailsRecyclerView.setAdapter(subscriberDetailsAdapter);
+        subscriberDetailsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        subscriberDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        subscriberDetailsRecyclerView.addItemDecoration(new Decoration(view.getContext(), Decoration.VERTICAL_LIST));
     }
 
     /**
@@ -103,7 +117,8 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
         if (subscriberDetailsState.isLoading()) {
             fetchSubscriberDetailsIndicator.show();
         } else if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
-            //TODO show the subscriber details on a recycler view and dismiss the loading message
+            fetchSubscriberDetailsIndicator.dismiss();
+            subscriberDetailsAdapter.setSubscriberDetails(subscriberDetailsState.getProfile(), subscriberDetailsState.getSubscriberRepositories());
         } else if (subscriberDetailsState.getError() != null) {
             fetchSubscriberDetailsIndicator.dismiss();
             showErrorMessage(subscriberDetailsState.getError());
@@ -131,5 +146,25 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
                 dialog.cancel();
             }
         }).create().show();
+    }
+
+    /**
+     * Manages the actions when the user makes click on the subscriber name
+     *
+     * @param htmlUrl contains the url to the GitHub profile
+     */
+    @Override
+    public void onProfileNameClick(String htmlUrl) {
+        //TODO Charge the htmlUrl into a WebView
+    }
+
+    /**
+     * Manages the actions when the users makes click on the repository item
+     *
+     * @param htmlUrl contains the url to the GitHub repository
+     */
+    @Override
+    public void onRepositoryClick(String htmlUrl) {
+        //TODO Charge the htmlUrl into a WebView
     }
 }
