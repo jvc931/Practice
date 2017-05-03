@@ -178,8 +178,8 @@ public class SubscriberDetailsAdapter extends RecyclerView.Adapter<SubscriberDet
             } else {
                 name.setText(profile.getName());
             }
-            location.setText(String.format("%s %s", context.getString(R.string.subscriber_details_location), profile.getLocation() != null ? profile.getLocation() : ""));
-            company.setText(String.format("%s %s", context.getString(R.string.subscriber_details_company_txt), profile.getCompany() != null ? profile.getCompany() : ""));
+            location.setText(String.format(context.getString(R.string.subscriber_details_location), profile.getLocation() != null ? profile.getLocation() : ""));
+            company.setText(String.format(context.getString(R.string.subscriber_details_company_txt), profile.getCompany() != null ? profile.getCompany() : ""));
             followers.setText(context.getString(R.string.subscriber_details_followers) + " " + String.valueOf(profile.getFollowers()));
             following.setText(context.getString(R.string.subscriber_details_following) + " " + String.valueOf(profile.getFollowing()));
             publicRepos.setText(context.getString(R.string.subscriber_details_publicrepos) + " " + String.valueOf(profile.getPublicRepos()));

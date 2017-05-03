@@ -6,11 +6,11 @@
     <string name="net_error_message">Couldn\'t get information from the server, please try later.</string>
     <string name="subscriberdetails_progress_dialog">Getting subscriber details, please wait</string>
     <string name="subscriber_details_item_txt_title">Repository:</string>
-    <string name="subscriber_details_company_txt">Company:</string>
+    <string name="subscriber_details_company_txt">Company: %s</string>
     <string name="subscriber_details_followers">Followers:</string>
     <string name="subscriber_details_following">Following:</string>
     <string name="subscriber_details_publicrepos">Repositories:</string>
-    <string name="subscriber_details_location">Location:</string>
+    <string name="subscriber_details_location">Location: %s</string>
     <string name="subscriber_details_layout_tag">repositoryItemLayout</string>
     <string name="subscriber_details_name_txt_tag">profileNameTxt</string>
     <string name="subscriber_details_profile_layout_tag">profileLayout</string>

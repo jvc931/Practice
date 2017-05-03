@@ -6,9 +6,9 @@
     <string name="net_error_message">No se pudo obtener la información del servidor. por favor intente más tarde.</string>
     <string name="subscriberdetails_progress_dialog">Obteniendo detalles del suscriptor, por favor espere</string>
     <string name="subscriber_details_item_txt_title">Repositorio:</string>
-    <string name="subscriber_details_company_txt">Compañia:</string>
+    <string name="subscriber_details_company_txt">Compañia: %s</string>
     <string name="subscriber_details_followers">Seguidores:</string>
     <string name="subscriber_details_following">Siguiendo:</string>
     <string name="subscriber_details_publicrepos">Repositorios:</string>
-    <string name="subscriber_details_location">Ubicación:</string>
+    <string name="subscriber_details_location">Ubicación: %s</string>
 </resources>
