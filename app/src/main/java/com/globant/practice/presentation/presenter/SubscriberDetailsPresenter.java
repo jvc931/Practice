@@ -124,7 +124,7 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
      */
     public void fetchSubscriberDetails(String login) {
         subscriberDetailsState.setLogin(login);
-        if (subscriberDetailsState.isLoading() && subscriberProfile != null && subscriberRepositories != null) {
+        if (subscriberProfile != null && subscriberRepositories != null) {
             subscriberDetailsState.setError(null);
             subscriberDetailsState.setProfile(subscriberProfile);
             subscriberDetailsState.setSubscriberRepositories(subscriberRepositories);

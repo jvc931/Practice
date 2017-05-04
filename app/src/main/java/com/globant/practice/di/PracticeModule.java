@@ -9,6 +9,7 @@ import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.presenter.SplashPresenter;
 import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
 import com.globant.practice.presentation.presenter.SubscriberListPresenter;
+import com.globant.practice.presentation.presenter.WebClientPresenter;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -68,6 +69,17 @@ public class PracticeModule {
     @Singleton
     SubscriberDetailsPresenter provideSubscriberDetailsPresenter(FetchSubscriberProfileInteractor profileInteractor, FetchSubscriberRepositoriesInteractor repositoriesInteractor) {
         return new SubscriberDetailsPresenter(profileInteractor, repositoriesInteractor);
+    }
+
+    /**
+     * Returns a unique reference of the WebClientPresenter
+     *
+     * @return WebClientPresenter reference
+     */
+    @Provides
+    @Singleton
+    WebClientPresenter provideWebClientPresenter() {
+        return new WebClientPresenter();
     }
 
     /**

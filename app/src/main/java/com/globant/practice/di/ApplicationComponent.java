@@ -4,6 +4,7 @@ import com.globant.practice.presentation.view.activity.HomeActivity;
 import com.globant.practice.presentation.view.activity.SplashActivity;
 import com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment;
 import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
+import com.globant.practice.presentation.view.fragment.WebClientFragment;
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -43,4 +44,11 @@ public interface ApplicationComponent {
      * @param fragment is the type SubscriberDetailsFragment
      */
     void inject(SubscriberDetailsFragment fragment);
+
+    /**
+     * Inject method for the WebClientFragment
+     *
+     * @param fragment is the type WebClientFragment
+     */
+    void inject(WebClientFragment fragment);
 }

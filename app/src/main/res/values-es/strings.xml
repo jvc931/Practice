@@ -11,4 +11,7 @@
     <string name="subscriber_details_following">Siguiendo: %d</string>
     <string name="subscriber_details_publicrepos">Repositorios: %d</string>
     <string name="subscriber_details_location">Ubicación: %s</string>
+    <string name="subscriber_detail_type_profile">Perfil</string>
+    <string name="subscriber_details_profile_layout_tag">Repositorio</string>
+    <string name="web_client_progress_dialog_message">Obteniendo %s, por favor espere</string>
 </resources>

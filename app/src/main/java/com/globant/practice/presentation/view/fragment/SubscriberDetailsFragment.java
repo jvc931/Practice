@@ -2,6 +2,7 @@ package com.globant.practice.presentation.view.fragment;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +20,6 @@ import com.globant.practice.presentation.model.SubscriberDetailsState;
 import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
 import com.globant.practice.presentation.view.Decoration;
 import com.globant.practice.presentation.view.adapter.SubscriberDetailsAdapter;
-
 import javax.inject.Inject;
 
 /**
@@ -30,6 +30,7 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
     private ProgressDialog fetchSubscriberDetailsIndicator;
     private RecyclerView subscriberDetailsRecyclerView;
     private SubscriberDetailsAdapter subscriberDetailsAdapter;
+    private SubscriberDetailsActions subscriberDetailsActions;
     @Inject
     SubscriberDetailsPresenter presenter;
 
@@ -85,6 +86,19 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
         subscriberDetailsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         subscriberDetailsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         subscriberDetailsRecyclerView.addItemDecoration(new Decoration(view.getContext(), Decoration.VERTICAL_LIST));
+    }
+
+    /**
+     * Initializes the context and the SubscriberDetailsActions instance
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (getActivity() instanceof SubscriberDetailsActions) {
+            subscriberDetailsActions = (SubscriberDetailsActions) getActivity();
+        }
     }
 
     /**
@@ -155,7 +169,9 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
      */
     @Override
     public void onProfileNameClick(String htmlUrl) {
-        //TODO Charge the htmlUrl into a WebView
+        if (subscriberDetailsActions != null) {
+            subscriberDetailsActions.nameSelected(htmlUrl, getString(R.string.subscriber_detail_type_profile));
+        }
     }
 
     /**
@@ -165,6 +181,29 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
      */
     @Override
     public void onRepositoryClick(String htmlUrl) {
-        //TODO Charge the htmlUrl into a WebView
+        if (subscriberDetailsActions != null) {
+            subscriberDetailsActions.repositorySelected(htmlUrl, getString(R.string.subscriber_detail_type_repository));
+        }
+    }
+
+    /**
+     * Manages the actions between SubscriberDetailsFragment and HomeActivity
+     */
+    public interface SubscriberDetailsActions {
+        /**
+         * Indicates that the user wants to see the profile of the subscriber
+         *
+         * @param htmlUrl    url with the profile address of the subscriber
+         * @param detailType Indicates the detail type of the user wants to see, in this case profile
+         */
+        void nameSelected(String htmlUrl, String detailType);
+
+        /**
+         * Indicates that the user wants to see the repository of the subscriber
+         *
+         * @param htmlUrl    url with the repository address of the subscriber
+         * @param detailType Indicates the detail type of the user wants to see, in this case repository
+         */
+        void repositorySelected(String htmlUrl, String detailType);
     }
 }
