@@ -30,7 +30,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
     private static final String HTML_URL_KEY = "url";
     private static final String DETAIL_TYPE_KEY = "type";
     private WebView webClientWebView;
-    private ProgressDialog webPageIndicator;
+    private ProgressDialog webPageLoadingIndicator;
     @Inject
     WebClientPresenter presenter;
 
@@ -102,9 +102,9 @@ public class WebClientFragment extends Fragment implements WebClientView {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(DETAIL_TYPE_KEY));
         }
         webClientWebView = (WebView) view.findViewById(R.id.web_client_webview);
-        webPageIndicator = new ProgressDialog(view.getContext());
-        webPageIndicator.setIndeterminate(true);
-        webPageIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        webPageLoadingIndicator = new ProgressDialog(view.getContext());
+        webPageLoadingIndicator.setIndeterminate(true);
+        webPageLoadingIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     /**
@@ -135,15 +135,15 @@ public class WebClientFragment extends Fragment implements WebClientView {
     @Override
     public void render(@NonNull WebClientState webClientState) {
         if (webClientState.isLoading()) {
-            webPageIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
+            webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
             webClientWebView.setWebViewClient(webViewLoadState);
             webClientWebView.loadUrl(webClientState.getHtmlUrl());
-            webPageIndicator.show();
+            webPageLoadingIndicator.show();
         } else if (!TextUtils.isEmpty(webClientState.getError()) && webClientState.isErrorShowing()) {
-            webPageIndicator.dismiss();
+            webPageLoadingIndicator.dismiss();
             showErrorMessage(webClientState.getError());
         } else {
-            webPageIndicator.dismiss();
+            webPageLoadingIndicator.dismiss();
         }
     }
 
