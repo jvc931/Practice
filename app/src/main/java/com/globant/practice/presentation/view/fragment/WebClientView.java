@@ -15,4 +15,11 @@ public interface WebClientView extends BaseView {
      * @param webClientState instance of the WebClientState
      */
     void render(WebClientState webClientState);
+
+    /**
+     * Gets the error message text from the resource file
+     *
+     * @return Error message text
+     */
+    String getErrorMessageText();
 }

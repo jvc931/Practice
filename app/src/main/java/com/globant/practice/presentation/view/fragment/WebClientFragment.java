@@ -3,9 +3,12 @@ package com.globant.practice.presentation.view.fragment;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +30,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
     private static final String HTML_URL_KEY = "url";
     private static final String DETAIL_TYPE_KEY = "type";
     private WebView webClientWebView;
-    private ProgressDialog getWebPageIndicator;
+    private ProgressDialog webPageIndicator;
     @Inject
     WebClientPresenter presenter;
 
@@ -38,14 +41,14 @@ public class WebClientFragment extends Fragment implements WebClientView {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            presenter.getWebPageCompleted();
+            presenter.webPageLoadComplete();
         }
 
         @SuppressWarnings("deprecation")
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
-            presenter.getWebPageError();
+            presenter.webPageError(failingUrl);
         }
 
         @TargetApi(android.os.Build.VERSION_CODES.M)
@@ -99,9 +102,9 @@ public class WebClientFragment extends Fragment implements WebClientView {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(DETAIL_TYPE_KEY));
         }
         webClientWebView = (WebView) view.findViewById(R.id.web_client_webview);
-        getWebPageIndicator = new ProgressDialog(view.getContext());
-        getWebPageIndicator.setIndeterminate(true);
-        getWebPageIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        webPageIndicator = new ProgressDialog(view.getContext());
+        webPageIndicator.setIndeterminate(true);
+        webPageIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     }
 
     /**
@@ -111,7 +114,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
     public void onResume() {
         super.onResume();
         presenter.attachView(this);
-        presenter.getWebPage(getArguments().getString(HTML_URL_KEY), getArguments().getString(DETAIL_TYPE_KEY));
+        presenter.loadWebPage(getArguments().getString(HTML_URL_KEY), getArguments().getString(DETAIL_TYPE_KEY));
     }
 
     /**
@@ -132,12 +135,15 @@ public class WebClientFragment extends Fragment implements WebClientView {
     @Override
     public void render(@NonNull WebClientState webClientState) {
         if (webClientState.isLoading()) {
-            getWebPageIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
+            webPageIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
             webClientWebView.setWebViewClient(webViewLoadState);
             webClientWebView.loadUrl(webClientState.getHtmlUrl());
-            getWebPageIndicator.show();
+            webPageIndicator.show();
+        } else if (!TextUtils.isEmpty(webClientState.getError()) && webClientState.isErrorShowing()) {
+            webPageIndicator.dismiss();
+            showErrorMessage(webClientState.getError());
         } else {
-            getWebPageIndicator.dismiss();
+            webPageIndicator.dismiss();
         }
     }
 
@@ -148,5 +154,28 @@ public class WebClientFragment extends Fragment implements WebClientView {
     public void onPause() {
         super.onPause();
         presenter.viewOnPauseState();
+    }
+
+    /**
+     * Gets the error message text from the resource file
+     *
+     * @return Error message text
+     */
+    @Override
+    public String getErrorMessageText() {
+        return getString(R.string.net_error_message);
+    }
+
+    /**
+     * Shows a AlertDialog to inform at the user that the api call have an error
+     */
+    private void showErrorMessage(String message) {
+        new AlertDialog.Builder(getView().getContext()).setTitle(message)
+                .setCancelable(false).setPositiveButton(getString(R.string.accept_text), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        }).create().show();
     }
 }

@@ -27,22 +27,25 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
      * @param htmlUrl    address of the web page that will be load
      * @param detailType indicates if the web page are a profile or a repository
      */
-    public void getWebPage(String htmlUrl, String detailType) {
-        webClientState.setHtmlUrl(htmlUrl);
-        webClientState.setDetailType(detailType);
-        webClientState.setLoading(true);
-        if (isViewAttached()) {
-            view.render(webClientState);
+    public void loadWebPage(String htmlUrl, String detailType) {
+        if (!webClientState.isLoading()) {
+            webClientState.setHtmlUrl(htmlUrl);
+            webClientState.setDetailType(detailType);
+            webClientState.setLoading(true);
+            webClientState.setErrorShowing(false);
+            if (isViewAttached()) {
+                view.render(webClientState);
+            }
         }
-
     }
 
     /**
      * Indicates that the web page is completely load on the WebView, works to dismiss the progress
      * dialog
      */
-    public void getWebPageCompleted() {
+    public void webPageLoadComplete() {
         webClientState.setLoading(false);
+        webClientState.setErrorShowing(false);
         if (isViewAttached()) {
             view.render(webClientState);
         }
@@ -51,10 +54,14 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
     /**
      * Indicates that the web page load has a error, works to dismiss the progress dialog
      */
-    public void getWebPageError() {
-        webClientState.setLoading(false);
-        if (isViewAttached()) {
-            view.render(webClientState);
+    public void webPageError(String failingUrl) {
+        if (failingUrl.equals(webClientState.getHtmlUrl()) && !webClientState.isErrorShowing()) {
+            webClientState.setLoading(false);
+            webClientState.setErrorShowing(true);
+            webClientState.setError(view.getErrorMessageText());
+            if (isViewAttached()) {
+                view.render(webClientState);
+            }
         }
     }
 

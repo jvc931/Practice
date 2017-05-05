@@ -9,6 +9,8 @@ public class WebClientState {
     private String htmlUrl;
     private String detailType;
     private boolean loading;
+    private String error;
+    private boolean errorShowing;
 
     /**
      * Sets the new value of the htmlUrl
@@ -38,6 +40,24 @@ public class WebClientState {
     }
 
     /**
+     * Sets the new value of the error message
+     *
+     * @param error new value of error message
+     */
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    /**
+     * Sets the new value of the errorShowing boolean
+     *
+     * @param erroShowing new value of the errorShowing boolean
+     */
+    public void setErrorShowing(boolean erroShowing) {
+        this.errorShowing = erroShowing;
+    }
+
+    /**
      * Gets the address of the web page that will be load
      *
      * @return web page address
@@ -62,5 +82,23 @@ public class WebClientState {
      */
     public boolean isLoading() {
         return loading;
+    }
+
+    /**
+     * Gets the error message
+     *
+     * @return error message
+     */
+    public String getError() {
+        return error;
+    }
+
+    /**
+     * Indicates if the error message is  showing or not
+     *
+     * @return true if the error message is showing if not return false
+     */
+    public boolean isErrorShowing() {
+        return errorShowing;
     }
 }
