@@ -26,14 +26,12 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Receives and assign an instance of the view interface and render the HomeActivity
-     *
-     * @param view instance of the view interface
+     * Renders the SubscriberListFragment on the view
      */
-    @Override
-    public void attachView(HomeView view) {
-        super.attachView(view);
-        view.render(homeViewState);
+    public void navigateToSubscriberListFragment() {
+        if (homeViewState.isFirstTimeToRun()) {
+            view.render(homeViewState);
+        }
     }
 
     /**
@@ -59,5 +57,14 @@ public class HomePresenter extends BasePresenter<HomeView> {
         if (isViewAttached()) {
             view.render(homeViewState);
         }
+    }
+
+    /**
+     * Sets the value of the firstTimeToRun boolean
+     *
+     * @param firstTimeToRun new value of the firstTimeToRun boolean
+     */
+    public void setFirstTimeToRun(boolean firstTimeToRun) {
+        homeViewState.setFirstTimeToRun(firstTimeToRun);
     }
 }

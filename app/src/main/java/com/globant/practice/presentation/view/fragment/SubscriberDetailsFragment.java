@@ -116,8 +116,8 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
      * Detach the view to the presenter
      */
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onPause() {
+        super.onPause();
         presenter.detachView();
     }
 

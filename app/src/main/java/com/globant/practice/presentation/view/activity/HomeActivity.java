@@ -18,7 +18,6 @@ import javax.inject.Inject;
  * Created by jonathan.vargas on 31/03/2017.
  */
 public class HomeActivity extends AppCompatActivity implements HomeView, SubscriberListFragment.SubscriberListFragmentActions, SubscriberDetailsFragment.SubscriberDetailsActions {
-
     @Inject
     HomePresenter presenter;
 
@@ -32,15 +31,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
+        presenter.setFirstTimeToRun(savedInstanceState == null);
     }
 
     /**
-     * Attach the view with the presenter.
+     * Attach the view with the presenter and navigate to SubscriberListFragment
      */
     @Override
     protected void onResume() {
         super.onResume();
         presenter.attachView(this);
+        presenter.navigateToSubscriberListFragment();
     }
 
     /**

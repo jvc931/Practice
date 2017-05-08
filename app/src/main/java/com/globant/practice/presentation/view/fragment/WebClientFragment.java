@@ -118,15 +118,6 @@ public class WebClientFragment extends Fragment implements WebClientView {
     }
 
     /**
-     * Detach the view on the presenter
-     */
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        presenter.detachView();
-    }
-
-    /**
      * Shows or dismiss the progress dialog, load the web page on the WebView depending of the
      * webClientState
      *
@@ -139,7 +130,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
             webClientWebView.setWebViewClient(webViewLoadState);
             webClientWebView.loadUrl(webClientState.getHtmlUrl());
             webPageLoadingIndicator.show();
-        } else if (!TextUtils.isEmpty(webClientState.getError()) && webClientState.isErrorShowing()) {
+        } else if (!TextUtils.isEmpty(webClientState.getError())) {
             webPageLoadingIndicator.dismiss();
             showErrorMessage(webClientState.getError());
         } else {
@@ -153,7 +144,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
     @Override
     public void onPause() {
         super.onPause();
-        presenter.viewOnPauseState();
+        presenter.detachView();
     }
 
     /**

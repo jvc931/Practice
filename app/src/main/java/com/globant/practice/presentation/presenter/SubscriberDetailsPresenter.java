@@ -28,8 +28,6 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
     private Observable<Profile> subscriberProfileObservable;
     private Observable<List<Repository>> subscriberRepositoryListObservable;
     private SubscriberDetailsState subscriberDetailsState;
-    private Profile subscriberProfile;
-    private List<Repository> subscriberRepositories;
 
     /**
      * Manages the callback of the profileInteractor call and initializes the repositoriesInteractor
@@ -44,7 +42,7 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
 
         @Override
         public void onNext(Profile profile) {
-            subscriberProfile = profile;
+            subscriberDetailsState.setProfile(profile);
             fetchSubscriberRepositories();
         }
 
@@ -75,10 +73,8 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
 
         @Override
         public void onNext(List<Repository> repositories) {
-            subscriberRepositories = repositories;
+            subscriberDetailsState.setSubscriberRepositories(repositories);
             subscriberDetailsState.setError(null);
-            subscriberDetailsState.setProfile(subscriberProfile);
-            subscriberDetailsState.setSubscriberRepositories(subscriberRepositories);
             subscriberDetailsState.setLoading(false);
             if (isViewAttached()) {
                 view.render(subscriberDetailsState);
@@ -124,10 +120,8 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
      */
     public void fetchSubscriberDetails(String login) {
         subscriberDetailsState.setLogin(login);
-        if (subscriberProfile != null && subscriberRepositories != null) {
+        if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
             subscriberDetailsState.setError(null);
-            subscriberDetailsState.setProfile(subscriberProfile);
-            subscriberDetailsState.setSubscriberRepositories(subscriberRepositories);
             subscriberDetailsState.setLoading(false);
             if (isViewAttached()) {
                 view.render(subscriberDetailsState);

@@ -28,14 +28,13 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
      * @param detailType indicates if the web page are a profile or a repository
      */
     public void loadWebPage(String htmlUrl, String detailType) {
-        if (!webClientState.isLoading()) {
-            webClientState.setHtmlUrl(htmlUrl);
-            webClientState.setDetailType(detailType);
-            webClientState.setLoading(true);
-            webClientState.setErrorShowing(false);
-            if (isViewAttached()) {
-                view.render(webClientState);
-            }
+        webClientState.setHtmlUrl(htmlUrl);
+        webClientState.setDetailType(detailType);
+        webClientState.setLoading(true);
+        webClientState.setErrorShowing(false);
+        webClientState.setError(null);
+        if (isViewAttached()) {
+            view.render(webClientState);
         }
     }
 
@@ -46,6 +45,7 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
     public void webPageLoadComplete() {
         webClientState.setLoading(false);
         webClientState.setErrorShowing(false);
+        webClientState.setError(null);
         if (isViewAttached()) {
             view.render(webClientState);
         }
@@ -68,10 +68,12 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
     /**
      * Indicates that the WebClient fragments are onPause state, works to dismiss the progress dialog
      */
-    public void viewOnPauseState() {
+    @Override
+    public void detachView() {
         webClientState.setLoading(false);
         if (isViewAttached()) {
             view.render(webClientState);
         }
+        super.detachView();
     }
 }
