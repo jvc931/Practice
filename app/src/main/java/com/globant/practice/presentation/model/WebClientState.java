@@ -1,5 +1,7 @@
 package com.globant.practice.presentation.model;
 
+import android.os.Bundle;
+
 /**
  * Manages the states of the WebClientFragment
  * Created by jonathan.vargas on 4/05/2017.
@@ -11,6 +13,7 @@ public class WebClientState {
     private boolean loading;
     private String error;
     private boolean errorShowing;
+    private Bundle webViewState;
 
     /**
      * Sets the new value of the htmlUrl
@@ -58,6 +61,15 @@ public class WebClientState {
     }
 
     /**
+     * Sets the new value of the webViewState bundle
+     *
+     * @param webViewState new value of the webViewState bundle
+     */
+    public void setWebViewState(Bundle webViewState) {
+        this.webViewState = webViewState;
+    }
+
+    /**
      * Gets the address of the web page that will be load
      *
      * @return web page address
@@ -100,5 +112,14 @@ public class WebClientState {
      */
     public boolean isErrorShowing() {
         return errorShowing;
+    }
+
+    /**
+     * Gets the state of the webClientWebView
+     *
+     * @return state of the webClientWebView
+     */
+    public Bundle getWebViewState() {
+        return webViewState;
     }
 }

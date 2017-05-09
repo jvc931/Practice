@@ -31,6 +31,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
     private static final String DETAIL_TYPE_KEY = "type";
     private WebView webClientWebView;
     private ProgressDialog webPageLoadingIndicator;
+    private Bundle webViewState;
     @Inject
     WebClientPresenter presenter;
 
@@ -102,6 +103,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(DETAIL_TYPE_KEY));
         }
         webClientWebView = (WebView) view.findViewById(R.id.web_client_webview);
+        webClientWebView.setWebViewClient(webViewLoadState);
         webPageLoadingIndicator = new ProgressDialog(view.getContext());
         webPageLoadingIndicator.setIndeterminate(true);
         webPageLoadingIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -126,25 +128,36 @@ public class WebClientFragment extends Fragment implements WebClientView {
     @Override
     public void render(@NonNull WebClientState webClientState) {
         if (webClientState.isLoading()) {
-            webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
-            webClientWebView.setWebViewClient(webViewLoadState);
-            webClientWebView.loadUrl(webClientState.getHtmlUrl());
-            webPageLoadingIndicator.show();
+            if (webClientState.getWebViewState() == null) {
+                webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
+                webClientWebView.loadUrl(webClientState.getHtmlUrl());
+                webPageLoadingIndicator.show();
+            } else {
+                webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
+                webPageLoadingIndicator.show();
+                webClientWebView.restoreState(webClientState.getWebViewState());
+            }
         } else if (!TextUtils.isEmpty(webClientState.getError())) {
             webPageLoadingIndicator.dismiss();
             showErrorMessage(webClientState.getError());
+        } else if (webClientState.getWebViewState() != null) {
+            webClientWebView.restoreState(webClientState.getWebViewState());
         } else {
             webPageLoadingIndicator.dismiss();
         }
     }
 
     /**
-     * Indicates to the presenter that the fragment is going into onPause state
+     * Indicates to the presenter that the fragment is going into onPause state and save the
+     * webViewState into the WebClientState
      */
     @Override
     public void onPause() {
         super.onPause();
         presenter.detachView();
+        webViewState = new Bundle();
+        webClientWebView.saveState(webViewState);
+        presenter.setWebViewState(webViewState);
     }
 
     /**
