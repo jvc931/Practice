@@ -1,6 +1,5 @@
 package com.globant.practice.presentation.presenter;
 
-import android.os.Bundle;
 import com.globant.practice.presentation.model.WebClientState;
 import com.globant.practice.presentation.view.fragment.WebClientView;
 import javax.inject.Inject;
@@ -29,7 +28,7 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
      * @param detailType indicates if the web page are a profile or a repository
      */
     public void loadWebPage(String htmlUrl, String detailType) {
-        if (!webClientState.isLoading() && webClientState.getWebViewState() == null) {
+        if (!webClientState.isLoading()) {
             webClientState.setHtmlUrl(htmlUrl);
             webClientState.setDetailType(detailType);
             webClientState.setLoading(true);
@@ -49,7 +48,6 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
         webClientState.setLoading(false);
         webClientState.setErrorShowing(false);
         webClientState.setError(null);
-        webClientState.setWebViewState(null);
         if (isViewAttached()) {
             view.render(webClientState);
         }
@@ -63,19 +61,9 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
             webClientState.setLoading(false);
             webClientState.setErrorShowing(true);
             webClientState.setError(view.getErrorMessageText());
-            webClientState.setWebViewState(null);
             if (isViewAttached()) {
                 view.render(webClientState);
             }
         }
-    }
-
-    /**
-     * Save the webViewState into the WebClientState
-     *
-     * @param webViewState state of the webClientWebView
-     */
-    public void setWebViewState(Bundle webViewState) {
-        webClientState.setWebViewState(webViewState);
     }
 }

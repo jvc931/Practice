@@ -20,6 +20,7 @@ import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
 import com.globant.practice.presentation.model.WebClientState;
 import com.globant.practice.presentation.presenter.WebClientPresenter;
+
 import javax.inject.Inject;
 
 /**
@@ -107,6 +108,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
         webPageLoadingIndicator = new ProgressDialog(view.getContext());
         webPageLoadingIndicator.setIndeterminate(true);
         webPageLoadingIndicator.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        webViewState = savedInstanceState;
     }
 
     /**
@@ -127,21 +129,23 @@ public class WebClientFragment extends Fragment implements WebClientView {
      */
     @Override
     public void render(@NonNull WebClientState webClientState) {
-        if (webClientState.isLoading()) {
-            if (webClientState.getWebViewState() == null) {
+        if (webViewState != null) {
+            if (webClientState.isLoading()) {
                 webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
-                webClientWebView.loadUrl(webClientState.getHtmlUrl());
                 webPageLoadingIndicator.show();
+                webClientWebView.restoreState(webViewState);
+                webViewState = null;
             } else {
-                webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
-                webPageLoadingIndicator.show();
-                webClientWebView.restoreState(webClientState.getWebViewState());
+                webClientWebView.restoreState(webViewState);
+                webViewState = null;
             }
+        } else if (webClientState.isLoading()) {
+            webPageLoadingIndicator.setMessage(String.format(getString(R.string.web_client_progress_dialog_message), webClientState.getDetailType()));
+            webClientWebView.loadUrl(webClientState.getHtmlUrl());
+            webPageLoadingIndicator.show();
         } else if (!TextUtils.isEmpty(webClientState.getError())) {
             webPageLoadingIndicator.dismiss();
             showErrorMessage(webClientState.getError());
-        } else if (webClientState.getWebViewState() != null) {
-            webClientWebView.restoreState(webClientState.getWebViewState());
         } else {
             webPageLoadingIndicator.dismiss();
         }
@@ -155,9 +159,11 @@ public class WebClientFragment extends Fragment implements WebClientView {
     public void onPause() {
         super.onPause();
         presenter.detachView();
-        webViewState = new Bundle();
-        webClientWebView.saveState(webViewState);
-        presenter.setWebViewState(webViewState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        webClientWebView.saveState(outState);
     }
 
     /**
