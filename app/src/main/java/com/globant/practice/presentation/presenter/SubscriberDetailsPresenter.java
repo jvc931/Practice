@@ -129,9 +129,6 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
             subscriberProfileObservable.subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(getSubscriberProfile);
-        } else if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
-            subscriberDetailsState.setError(null);
-            subscriberDetailsState.setLoading(false);
         }
         if (isViewAttached()) {
             view.render(subscriberDetailsState);
