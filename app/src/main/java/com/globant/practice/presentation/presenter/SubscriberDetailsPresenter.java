@@ -120,24 +120,21 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
      */
     public void fetchSubscriberDetails(String login) {
         subscriberDetailsState.setLogin(login);
-        if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
-            subscriberDetailsState.setError(null);
-            subscriberDetailsState.setLoading(false);
-            if (isViewAttached()) {
-                view.render(subscriberDetailsState);
-            }
-        } else {
+        if (!subscriberDetailsState.isLoading() && subscriberDetailsState.getProfile() == null && subscriberDetailsState.getSubscriberRepositories() == null) {
             subscriberDetailsState.setError(null);
             subscriberDetailsState.setProfile(null);
             subscriberDetailsState.setSubscriberRepositories(null);
             subscriberDetailsState.setLoading(true);
-            if (isViewAttached()) {
-                view.render(subscriberDetailsState);
-                subscriberProfileObservable = profileInteractor.execute(subscriberDetailsState.getLogin());
-                subscriberProfileObservable.subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(getSubscriberProfile);
-            }
+            subscriberProfileObservable = profileInteractor.execute(subscriberDetailsState.getLogin());
+            subscriberProfileObservable.subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(getSubscriberProfile);
+        } else if (subscriberDetailsState.getProfile() != null && subscriberDetailsState.getSubscriberRepositories() != null) {
+            subscriberDetailsState.setError(null);
+            subscriberDetailsState.setLoading(false);
+        }
+        if (isViewAttached()) {
+            view.render(subscriberDetailsState);
         }
     }
 
