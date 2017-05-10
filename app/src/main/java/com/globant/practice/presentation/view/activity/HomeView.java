@@ -1,6 +1,5 @@
 package com.globant.practice.presentation.view.activity;
 
-import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.view.BaseView;
 
 /**
@@ -9,11 +8,8 @@ import com.globant.practice.presentation.view.BaseView;
  */
 
 public interface HomeView extends BaseView {
-
     /**
-     * Renders the view items depending of the view state
-     *
-     * @param homeViewState state of the view
+     * Renders the SubscriberListFragment when is the first time that the application runs
      */
-    void render(HomeViewState homeViewState);
+    void render();
 }

@@ -74,6 +74,7 @@ public class SubscriberDetailsFragment extends Fragment implements SubscriberDet
         super.onViewCreated(view, savedInstanceState);
         if (!getArguments().getString(LOGIN_KEY).isEmpty()) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(LOGIN_KEY));
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         fetchSubscriberDetailsIndicator = new ProgressDialog(view.getContext());
         fetchSubscriberDetailsIndicator.setMessage(getString(R.string.subscriberdetails_progress_dialog));

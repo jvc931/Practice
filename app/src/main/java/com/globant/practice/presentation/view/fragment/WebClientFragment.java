@@ -101,6 +101,7 @@ public class WebClientFragment extends Fragment implements WebClientView {
         super.onViewCreated(view, savedInstanceState);
         if (!getArguments().getString(DETAIL_TYPE_KEY).isEmpty()) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(getArguments().getString(DETAIL_TYPE_KEY));
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         webClientWebView = (WebView) view.findViewById(R.id.web_client_webview);
         webClientWebView.setWebViewClient(webViewLoadState);

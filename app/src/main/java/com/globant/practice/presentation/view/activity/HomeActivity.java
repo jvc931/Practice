@@ -1,15 +1,15 @@
 package com.globant.practice.presentation.view.activity;
 
 import android.app.Fragment;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import com.globant.practice.PracticeApplication;
 import com.globant.practice.R;
-import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.presenter.HomePresenter;
 import com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment;
 import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
+import com.globant.practice.presentation.view.fragment.WebClientFragment;
 import javax.inject.Inject;
 
 /**
@@ -31,7 +31,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ((PracticeApplication) getApplication()).getApplicationComponent().inject(this);
-        presenter.setFirstTimeToRun(savedInstanceState == null);
     }
 
     /**
@@ -54,13 +53,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
     }
 
     /**
-     * Renders the view items depending of the view state
-     *
-     * @param homeViewState state of the view
+     * Renders the SubscriberListFragment when is the first time that the application runs
      */
     @Override
-    public void render(@NonNull HomeViewState homeViewState) {
-        setFragment(homeViewState.getFragment());
+    public void render() {
+        setFragment(SubscriberListFragment.newInstance());
     }
 
     /**
@@ -70,17 +67,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void subscriberSelected(String login) {
-        presenter.subscriberSelected(login);
+        setFragment(SubscriberDetailsFragment.newInstance(login));
     }
 
     /**
-     * Change the fragment
+     * Change the showing fragment
      *
      * @param fragment fragment instance
      */
     private void setFragment(Fragment fragment) {
         getFragmentManager().beginTransaction()
-                .replace(R.id.content, fragment).commit();
+                .replace(R.id.content, fragment).addToBackStack(null).commit();
     }
 
     /**
@@ -91,7 +88,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void nameSelected(String htmlUrl, String detailType) {
-        presenter.detailSelected(htmlUrl, detailType);
+        setFragment(WebClientFragment.newInstance(htmlUrl, detailType));
     }
 
     /**
@@ -102,6 +99,45 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void repositorySelected(String htmlUrl, String detailType) {
-        presenter.detailSelected(htmlUrl, detailType);
+        setFragment(WebClientFragment.newInstance(htmlUrl, detailType));
+    }
+
+    /**
+     * Listens the back key to come back the fragment stack
+     */
+    @Override
+    public void onBackPressed() {
+        if (!isFragmentComingBack()) {
+            super.onBackPressed();
+        }
+    }
+
+    /**
+     * Listens the ActionBar back key to come back the fragment stack
+     *
+     * @param item MenuItem that the user makes click
+     * @return true if the fragment stack come back to the before fragment
+     */
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == android.R.id.home && isFragmentComingBack()) {
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Indicates if the fragment stack come back to the before fragment
+     *
+     * @return true if the fragment stack come back to the before fragment if not return false
+     */
+    private boolean isFragmentComingBack() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            return true;
+        } else {
+            return false;
+        }
     }
 }
