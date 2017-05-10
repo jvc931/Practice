@@ -4,6 +4,7 @@ import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.view.activity.HomeView;
 import com.globant.practice.presentation.view.fragment.SubscriberDetailsFragment;
 import com.globant.practice.presentation.view.fragment.SubscriberListFragment;
+import com.globant.practice.presentation.view.fragment.WebClientFragment;
 import javax.inject.Inject;
 
 /**
@@ -25,14 +26,12 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     /**
-     * Receives and assign an instance of the view interface and render the HomeActivity
-     *
-     * @param view instance of the view interface
+     * Renders the SubscriberListFragment on the view
      */
-    @Override
-    public void attachView(HomeView view) {
-        super.attachView(view);
-        view.render(homeViewState);
+    public void navigateToSubscriberListFragment() {
+        if (homeViewState.isFirstTimeToRun()) {
+            view.render(homeViewState);
+        }
     }
 
     /**
@@ -45,5 +44,27 @@ public class HomePresenter extends BasePresenter<HomeView> {
         if (isViewAttached()) {
             view.render(homeViewState);
         }
+    }
+
+    /**
+     * Creates a new instance of WebClientFragment and render it on the view
+     *
+     * @param htmlUrl    url of the web page that will be load on the WebView
+     * @param detailType Indicates if the web page load are a repository or a profile
+     */
+    public void detailSelected(String htmlUrl, String detailType) {
+        homeViewState.setFragment(WebClientFragment.newInstance(htmlUrl, detailType));
+        if (isViewAttached()) {
+            view.render(homeViewState);
+        }
+    }
+
+    /**
+     * Sets the value of the firstTimeToRun boolean
+     *
+     * @param firstTimeToRun new value of the firstTimeToRun boolean
+     */
+    public void setFirstTimeToRun(boolean firstTimeToRun) {
+        homeViewState.setFirstTimeToRun(firstTimeToRun);
     }
 }

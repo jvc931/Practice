@@ -12,4 +12,7 @@
     <string name="subscriber_details_publicrepos">Repositories: %d</string>
     <string name="subscriber_details_location">Location: %s</string>
     <string name="subscriber_details_profile_layout_tag">profileLayout</string>
+    <string name="subscriber_detail_type_profile">Profile</string>
+    <string name="subscriber_detail_type_repository">Repository</string>
+    <string name="web_client_progress_dialog_message">Getting %s, please wait</string>
 </resources>

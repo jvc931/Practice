@@ -9,6 +9,7 @@ import android.app.Fragment;
 
 public class HomeViewState {
     private Fragment fragment;
+    private boolean firstTimeToRun;
 
     /**
      * Gets the fragment instance
@@ -20,11 +21,29 @@ public class HomeViewState {
     }
 
     /**
+     * Indicates if  is the first time that the application run
+     *
+     * @return true if is the first time if not false
+     */
+    public boolean isFirstTimeToRun() {
+        return firstTimeToRun;
+    }
+
+    /**
      * Sets the fragment instance
      *
      * @param fragment fragment instance
      */
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    /**
+     * Sets the new value of firstTimeToRun
+     *
+     * @param firstTimeToRun Indicates if is the first time that the application run
+     */
+    public void setFirstTimeToRun(boolean firstTimeToRun) {
+        this.firstTimeToRun = firstTimeToRun;
     }
 }
