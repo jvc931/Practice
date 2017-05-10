@@ -6,6 +6,7 @@ import com.globant.practice.presentation.model.SubscriberListState;
 import com.globant.practice.presentation.view.fragment.SubscriberListView;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
  * Contains the methods that the SubscriberListFragment needs.
  * Created by jonathan.vargas on 24/04/2017.
  */
-
+@Singleton
 public class SubscriberListPresenter extends BasePresenter<SubscriberListView> {
     private FetchUsersInteractor interactor;
     private Observable<List<User>> userListObservable;

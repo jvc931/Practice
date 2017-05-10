@@ -3,13 +3,14 @@ package com.globant.practice.presentation.presenter;
 import com.globant.practice.presentation.model.WebClientState;
 import com.globant.practice.presentation.view.fragment.WebClientView;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Manages the possible states of the WebClientFragment using a view model called WebClientState,
  * load the web page on the WebView and shows o dismiss the progress dialog on the WebClientFragment
  * Created by jonathan.vargas on 4/05/2017.
  */
-
+@Singleton
 public class WebClientPresenter extends BasePresenter<WebClientView> {
     private WebClientState webClientState;
 

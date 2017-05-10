@@ -8,6 +8,7 @@ import com.globant.practice.presentation.model.SubscriberDetailsState;
 import com.globant.practice.presentation.view.fragment.SubscriberDetailsView;
 import java.util.List;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,7 +22,7 @@ import io.reactivex.schedulers.Schedulers;
  * view that have to render a message error.
  * Created by jonathan.vargas on 26/04/2017.
  */
-
+@Singleton
 public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsView> {
     private FetchSubscriberProfileInteractor profileInteractor;
     private FetchSubscriberRepositoriesInteractor repositoriesInteractor;
