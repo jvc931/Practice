@@ -58,8 +58,8 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
         if (failingUrl.equals(webClientState.getHtmlUrl()) && !webClientState.isErrorShowing()) {
             webClientState.setLoading(false);
             webClientState.setErrorShowing(true);
-            webClientState.setError(view.getErrorMessageText());
             if (isViewAttached()) {
+                webClientState.setError(view.getErrorMessageText());
                 view.render(webClientState);
             }
         }

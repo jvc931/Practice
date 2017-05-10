@@ -67,8 +67,8 @@ public class SubscriberListPresenter extends BasePresenter<SubscriberListView> {
         public void onError(Throwable e) {
             subscriberListState.setLoading(false);
             subscriberListState.setUsers(null);
-            subscriberListState.setError(view.getErrorMessageText());
             if (isViewAttached()) {
+                subscriberListState.setError(view.getErrorMessageText());
                 view.render(subscriberListState);
             }
         }
