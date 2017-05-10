@@ -7,7 +7,6 @@ package com.globant.practice.presentation.model;
 
 public class WebClientState {
     private String htmlUrl;
-    private String detailType;
     private boolean loading;
     private String error;
     private boolean errorShowing;
@@ -19,15 +18,6 @@ public class WebClientState {
      */
     public void setHtmlUrl(String htmlUrl) {
         this.htmlUrl = htmlUrl;
-    }
-
-    /**
-     * Sets the new value of the detailType
-     *
-     * @param detailType new value of the detailType
-     */
-    public void setDetailType(String detailType) {
-        this.detailType = detailType;
     }
 
     /**
@@ -64,15 +54,6 @@ public class WebClientState {
      */
     public String getHtmlUrl() {
         return htmlUrl;
-    }
-
-    /**
-     * Gets the type of the web page (Profile or Repository)
-     *
-     * @return the type of the web page
-     */
-    public String getDetailType() {
-        return detailType;
     }
 
     /**

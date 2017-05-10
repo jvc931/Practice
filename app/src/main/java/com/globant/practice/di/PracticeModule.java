@@ -1,15 +1,7 @@
 package com.globant.practice.di;
 
 import com.globant.practice.BuildConfig;
-import com.globant.practice.domain.interactor.FetchSubscriberProfileInteractor;
-import com.globant.practice.domain.interactor.FetchSubscriberRepositoriesInteractor;
-import com.globant.practice.domain.interactor.FetchUsersInteractor;
 import com.globant.practice.domain.service.GitHubApi;
-import com.globant.practice.presentation.presenter.HomePresenter;
-import com.globant.practice.presentation.presenter.SplashPresenter;
-import com.globant.practice.presentation.presenter.SubscriberDetailsPresenter;
-import com.globant.practice.presentation.presenter.SubscriberListPresenter;
-import com.globant.practice.presentation.presenter.WebClientPresenter;
 import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
@@ -23,64 +15,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class PracticeModule {
-
-    /**
-     * Returns a unique reference of SplashPresenter.
-     *
-     * @return SplashPresenter reference
-     */
-    @Provides
-    @Singleton
-    SplashPresenter provideSplashPresenter() {
-        return new SplashPresenter();
-    }
-
-    /**
-     * Returns a unique reference of SubscriberListPresenter.
-     *
-     * @param interactor needs an UsersInteractor reference
-     * @return SubscriberListPresenter reference
-     */
-    @Provides
-    @Singleton
-    SubscriberListPresenter provideSubscriberListPresenter(FetchUsersInteractor interactor) {
-        return new SubscriberListPresenter(interactor);
-    }
-
-    /**
-     * Returns a unique reference of HomePresenter
-     *
-     * @return HomePresenter reference
-     */
-    @Provides
-    @Singleton
-    HomePresenter provideHomePresenter() {
-        return new HomePresenter();
-    }
-
-    /**
-     * Returns a unique reference of SubscriberDetailsPresenter
-     *
-     * @param profileInteractor      needs a profileInteractor reference
-     * @param repositoriesInteractor needs a repositoriesInteractor reference
-     * @return SubscriberDetailsPresenter reference
-     */
-    @Provides
-    @Singleton
-    SubscriberDetailsPresenter provideSubscriberDetailsPresenter(FetchSubscriberProfileInteractor profileInteractor, FetchSubscriberRepositoriesInteractor repositoriesInteractor) {
-        return new SubscriberDetailsPresenter(profileInteractor, repositoriesInteractor);
-    }
-
-    /**
-     * Returns a unique reference of the WebClientPresenter
-     *
-     * @return WebClientPresenter reference
-     */
-    @Provides
-    @Singleton
-    WebClientPresenter provideWebClientPresenter() {
-        return new WebClientPresenter();
-    }
 
     /**
      * Returns a unique reference of retrofit.

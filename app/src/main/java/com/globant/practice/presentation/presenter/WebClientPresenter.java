@@ -24,13 +24,11 @@ public class WebClientPresenter extends BasePresenter<WebClientView> {
     /**
      * Initializes the web page load progress
      *
-     * @param htmlUrl    address of the web page that will be load
-     * @param detailType indicates if the web page are a profile or a repository
+     * @param htmlUrl address of the web page that will be load
      */
-    public void loadWebPage(String htmlUrl, String detailType) {
+    public void loadWebPage(String htmlUrl) {
         if (!webClientState.isLoading()) {
             webClientState.setHtmlUrl(htmlUrl);
-            webClientState.setDetailType(detailType);
             webClientState.setLoading(true);
             webClientState.setErrorShowing(false);
             webClientState.setError(null);
