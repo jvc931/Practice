@@ -4,11 +4,13 @@ import com.globant.practice.presentation.view.activity.SplashView;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Contains the methods that the SplashActivity needs.
  * Created by jonathan.vargas on 30/03/2017.
  */
+@Singleton
 public class SplashPresenter extends BasePresenter<SplashView> {
     private boolean firstTimeThatRun = true;
     private static final int TIME_TO_WAIT = 3500;

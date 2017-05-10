@@ -68,6 +68,7 @@ public class SubscriberListFragment extends Fragment implements SubscriberListVi
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.large_app_name);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         subscriberRecyclerView = (RecyclerView) view.findViewById(R.id.subscriberRecyclerView);
         fetchUserIndicator = new ProgressDialog(view.getContext());
         fetchUserIndicator.setMessage(getString(R.string.subscriberlist_progress_dialog));
