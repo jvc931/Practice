@@ -7,7 +7,10 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
 /**
@@ -38,9 +41,21 @@ public class HomePresenterTest {
      * render method is called.
      */
     @Test
-    public void navigateToSubscriberListFragment__ShouldNavigateToSubscriberList() {
+    public void fetchSubscriberList_withViewAttached_shouldShowSubscribers() {
         when(mockHomeViewState.isFirstTimeToRun()).thenReturn(true);
         presenter.navigateToSubscriberListFragment();
         verify(mockView).render();
+    }
+
+    /**
+     * Tests the navigateToSubscriberListFragment method by calling it that and verified if the
+     * render method is not called.
+     */
+    @Test
+    public void fetchSubscriberList_withViewDetached_shouldNotShowSubscribers() {
+        presenter.detachView();
+        when(mockHomeViewState.isFirstTimeToRun()).thenReturn(true);
+        presenter.navigateToSubscriberListFragment();
+        verify(mockView, never()).render();
     }
 }
