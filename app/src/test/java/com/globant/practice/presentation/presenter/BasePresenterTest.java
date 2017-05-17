@@ -1,10 +1,6 @@
 package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.presentation.view.activity.HomeView;
-import com.globant.practice.presentation.view.activity.SplashView;
-import com.globant.practice.presentation.view.fragment.SubscriberDetailsView;
-import com.globant.practice.presentation.view.fragment.SubscriberListView;
-import com.globant.practice.presentation.view.fragment.WebClientView;
+import com.globant.practice.presentation.view.BaseView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,15 +14,7 @@ import static org.mockito.Mockito.verify;
  */
 public class BasePresenterTest {
     @Mock
-    private SplashView mockSplashView;
-    @Mock
-    private HomeView mockHomeView;
-    @Mock
-    private SubscriberListView mockSubscriberListView;
-    @Mock
-    private SubscriberDetailsView mockSubscriberDetailsView;
-    @Mock
-    WebClientView mockWebClientView;
+    private BaseView mockView;
     @Mock
     private BasePresenter presenter;
 
@@ -36,7 +24,7 @@ public class BasePresenterTest {
      */
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter.attachView(mockSplashView);
+        presenter.attachView(mockView);
     }
 
     /**
@@ -45,15 +33,7 @@ public class BasePresenterTest {
      */
     @Test
     public void attachView_passVerifyMethod() {
-        verify(presenter).attachView(mockSplashView);
-        presenter.attachView(mockHomeView);
-        verify(presenter).attachView(mockHomeView);
-        presenter.attachView(mockSubscriberListView);
-        verify(presenter).attachView(mockSubscriberListView);
-        presenter.attachView(mockSubscriberDetailsView);
-        verify(presenter).attachView(mockSubscriberDetailsView);
-        presenter.attachView(mockWebClientView);
-        verify(presenter).attachView(mockWebClientView);
+        verify(presenter).attachView(mockView);
     }
 
     /**
@@ -73,5 +53,4 @@ public class BasePresenterTest {
     public void isViewAttached() {
         assertFalse(presenter.isViewAttached());
     }
-
 }

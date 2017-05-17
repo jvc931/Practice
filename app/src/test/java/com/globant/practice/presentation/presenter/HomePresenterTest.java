@@ -1,8 +1,10 @@
 package com.globant.practice.presentation.presenter;
 
+import com.globant.practice.presentation.model.HomeViewState;
 import com.globant.practice.presentation.view.activity.HomeView;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.verify;
@@ -13,7 +15,9 @@ import static org.mockito.Mockito.when;
  * Created by jonathan.vargas on 15/05/2017.
  */
 public class HomePresenterTest {
-    @Mock
+    @Mock(name = "homeViewState")
+    private HomeViewState mockHomeViewState;
+    @InjectMocks
     private HomePresenter presenter;
     @Mock
     private HomeView mockView;
@@ -30,13 +34,13 @@ public class HomePresenterTest {
     }
 
     /**
-     * Tests the navigateToSubscriberListFragment method by calling it that and verified if the method
-     * runs one time.
+     * Tests the navigateToSubscriberListFragment method by calling it that and verified if the
+     * render method is called.
      */
     @Test
-    public void navigateToSubscriberListFragment_ShouldRun() {
-        when(presenter.isViewAttached()).thenReturn(true);
+    public void navigateToSubscriberListFragment__ShouldNavigateToSubscriberList() {
+        when(mockHomeViewState.isFirstTimeToRun()).thenReturn(true);
         presenter.navigateToSubscriberListFragment();
-        verify(presenter).navigateToSubscriberListFragment();
+        verify(mockView).render();
     }
 }
