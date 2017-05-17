@@ -1,12 +1,12 @@
-package com.globant.practice.presenter;
+package com.globant.practice.presentation.presenter;
 
-import com.globant.practice.presentation.presenter.SplashPresenter;
 import com.globant.practice.presentation.view.activity.SplashView;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
 /**
  * Unit test for the methods of the SplashPresenter.
@@ -37,6 +37,7 @@ public class SplashPresenterTest {
      */
     @Test
     public void timeToWaitForChangeView_ShouldWaitTheTimeToChangeTheView() throws Exception {
+        when(presenter.isViewAttached()).thenReturn(true);
         presenter.timeToWaitForChangeView();
         try {
             Thread.sleep(3600);
@@ -53,6 +54,7 @@ public class SplashPresenterTest {
      */
     @Test
     public void stopWaitTimeToChangeView_ShouldRunWithoutErrors() throws Exception {
+        when(presenter.isViewAttached()).thenReturn(true);
         presenter.timeToWaitForChangeView();
         try {
             presenter.stopWaitTimeToChangeView();
