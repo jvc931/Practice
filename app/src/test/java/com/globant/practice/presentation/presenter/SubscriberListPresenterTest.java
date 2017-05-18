@@ -1,5 +1,7 @@
 package com.globant.practice.presentation.presenter;
 
+import android.support.annotation.NonNull;
+
 import com.globant.practice.domain.interactor.FetchUsersInteractor;
 import com.globant.practice.domain.model.User;
 import com.globant.practice.domain.service.GitHubApi;
@@ -55,19 +57,66 @@ public class SubscriberListPresenterTest {
         presenter.attachView(mockView);
     }
 
+    @BeforeClass
+    public static void setUpRxSchedulers()throws Exception{
+        final Scheduler scheduler1 = new Scheduler() {
+            @Override
+            public Worker createWorker() {
+                return new ExecutorScheduler.ExecutorWorker(new Executor() {
+                    @Override
+                    public void execute(@NonNull Runnable command) {
+                        command.run();
+                    }
+                });
+            }
+        };
+
+        RxJavaPlugins.setIoSchedulerHandler(new Function<Scheduler, Scheduler>() {
+            @Override
+            public Scheduler apply(Scheduler scheduler) throws Exception {
+                return scheduler1;
+            }
+        });
+
+        RxJavaPlugins.setInitComputationSchedulerHandler(new Function<Callable<Scheduler>, Scheduler>() {
+            @Override
+            public Scheduler apply(Callable<Scheduler> schedulerCallable) throws Exception {
+                return scheduler1;
+            }
+        });
+
+        RxJavaPlugins.setNewThreadSchedulerHandler(new Function<Scheduler, Scheduler>() {
+            @Override
+            public Scheduler apply(Scheduler scheduler) throws Exception {
+                return scheduler1;
+            }
+        });
+
+        RxJavaPlugins.setSingleSchedulerHandler(new Function<Scheduler, Scheduler>() {
+            @Override
+            public Scheduler apply(Scheduler scheduler) throws Exception {
+                return scheduler1;
+            }
+        });
+
+        RxAndroidPlugins.setMainThreadSchedulerHandler(new Function<Scheduler, Scheduler>() {
+            @Override
+            public Scheduler apply(Scheduler scheduler) throws Exception {
+                return scheduler1;
+            }
+        });
+    }
+
     @Test
     public void fetchUsers() throws Exception {
         //when(presenter.isViewAttached()).thenReturn(true);
         //List<User> mockUserList = Arrays.asList(new User("mockUser","www.mockUrl.com"));
         //Observable<List<User>> mockObservableUserList = Observable.just(mockUserList);
-        when(mockSubscriberListState.isLoading()).thenReturn(true);
+        //when(mockSubscriberListState.isLoading()).thenReturn(true);
         //when(interactor.execute()).thenReturn(Observable.just(mockUserList));
         presenter.fetchUsers();
         verify(mockView).render(any(SubscriberListState.class));
     }
 
-    @BeforeClass
-    public static void setUpClass()throws Exception{
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler((Function<Callable<Scheduler>, Scheduler>) Schedulers.trampoline());
-    }
+
 }
