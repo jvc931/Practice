@@ -42,11 +42,11 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void loadWebPage_withAttachView_ShouldShowLoadingIndicatorAndLoadWebPage() throws Exception {
+    public void loadWebPage_withViewAttached_ShouldShowLoadingIndicatorAndLoadWebPage() throws Exception {
         presenter.attachView(mockView);
         when(mockWebClientState.isLoading()).thenReturn(false);
         presenter.loadWebPage("www.mockUrl.com");
-        verify(mockView, times(1)).render(any(WebClientState.class));
+        verify(mockView).render(any(WebClientState.class));
     }
 
     /**
@@ -56,10 +56,10 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void webPageLoadComplete_withAttachView_ShouldDismissLoadingIndicator() throws Exception {
+    public void webPageLoadComplete_withViewAttached_ShouldDismissLoadingIndicator() throws Exception {
         presenter.attachView(mockView);
         presenter.webPageLoadComplete();
-        verify(mockView, times(1)).render(any(WebClientState.class));
+        verify(mockView).render(any(WebClientState.class));
     }
 
     /**
@@ -69,11 +69,11 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void webPageError_witAttachView_ShouldDismissLoadingIndicatorAndShowErrorMessage() throws Exception {
+    public void webPageError_withViewAttached_ShouldDismissLoadingIndicatorAndShowErrorMessage() throws Exception {
         presenter.attachView(mockView);
         when(mockWebClientState.getHtmlUrl()).thenReturn("mockError");
         presenter.webPageError("mockError");
-        verify(mockView, times(1)).render(any(WebClientState.class));
+        verify(mockView).render(any(WebClientState.class));
     }
 
     /**
@@ -83,7 +83,7 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void loadWebPage_withDetachView_ShouldNotShowLoadingIndicator() throws Exception {
+    public void loadWebPage_withViewDetached_ShouldNotShowLoadingIndicator() throws Exception {
         presenter.detachView();
         when(mockWebClientState.isLoading()).thenReturn(false);
         presenter.loadWebPage("www.mockUrl.com");
@@ -97,7 +97,7 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void webPageLoadComplete_withDetachView_ShouldNotDismissLoadingIndicator() throws Exception {
+    public void webPageLoadComplete_withViewDetached_ShouldNotDismissLoadingIndicator() throws Exception {
         presenter.detachView();
         presenter.webPageLoadComplete();
         verify(mockView, never()).render(any(WebClientState.class));
@@ -110,7 +110,7 @@ public class WebClientPresenterTest {
      * @throws Exception
      */
     @Test
-    public void webPageError_witDetachView_ShouldNotDismissLoadingIndicator() throws Exception {
+    public void webPageError_withViewDetached_ShouldNotDismissLoadingIndicator() throws Exception {
         presenter.detachView();
         when(mockWebClientState.getHtmlUrl()).thenReturn("mockError");
         presenter.webPageError("mockError");

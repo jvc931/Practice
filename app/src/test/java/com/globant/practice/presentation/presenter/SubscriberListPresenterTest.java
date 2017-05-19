@@ -113,7 +113,7 @@ public class SubscriberListPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchUsers_withViewAttachedAndWebserviceResponse_ShouldShowLoadingIndicatorAndSubscribers() throws Exception {
+    public void fetchUsers_withViewAttachedAndSuccessfulResponse_ShouldRenderLoadingIndicatorAndSubscribers() throws Exception {
         List<User> mockUserList = Arrays.asList(new User("mockUser", "www.mockUrl.com"));
         when(interactor.execute()).thenReturn(Observable.just(mockUserList));
         presenter.fetchUsers();
@@ -128,7 +128,7 @@ public class SubscriberListPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchUsers_withViewAttachedAndWebserviceErrorResponse_ShouldShowLoadingIndicatorAndErrorMessage() throws Exception {
+    public void fetchUsers_withViewAttachedAndResponseFails_ShouldRenderLoadingIndicatorAndError() throws Exception {
         when(interactor.execute()).thenReturn(Observable.<List<User>>error(new UnknownHostException()));
         presenter.fetchUsers();
         verify(mockView, times(2)).render(any(SubscriberListState.class));

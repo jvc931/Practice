@@ -119,7 +119,7 @@ public class SubscriberDetailsPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchSubscriberDetails_withAttachedViewAndProfileInteractorErrorResponse_ShouldShowLoadingIndicatorAndErrorMessage_ShouldNotCallRepositoriesInteractor() throws Exception {
+    public void fetchSubscriberDetails_withViewAttachedAndProfileCallFails_ShouldRenderLoadingIndicatorAndError() throws Exception {
         when(profileInteractor.execute(anyString())).thenReturn(Observable.<Profile>error(new UnknownHostException()));
         presenter.fetchSubscriberDetails(anyString());
         verify(mockView, times(2)).render(any(SubscriberDetailsState.class));
@@ -135,13 +135,13 @@ public class SubscriberDetailsPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchSubscriberDetails_withAttachedViewAndProfileInteractorResponse_ShouldCallRepositoriesInteractor_withRepositoriesInteractorErrorResponse() throws Exception {
+    public void fetchSubscriberDetails_withViewAttachedAndRepositoriesCallFails_ShouldRenderLoadingIndicatorAndError() throws Exception {
         Profile mockProfile = new Profile("mockLogin", "www.mockulr.com", "www.mockurl.com", "mockName", "mockCompany", "mockLocation", 1, 1, 1);
         when(profileInteractor.execute(anyString())).thenReturn(Observable.just(mockProfile));
         when(repositoriesInteractor.execute(anyString())).thenReturn(Observable.<List<Repository>>error(new UnknownHostException()));
         presenter.fetchSubscriberDetails(anyString());
         verify(mockView, times(2)).render(any(SubscriberDetailsState.class));
-        verify(repositoriesInteractor, times(1)).execute(anyString());
+        verify(repositoriesInteractor).execute(anyString());
     }
 
     /**
@@ -154,13 +154,13 @@ public class SubscriberDetailsPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchSubscriberDetails_withAttachedViewAndProfileInteractorResponse_ShouldCallRepositoriesInteractor_withRepositoriesInteractorResponse() throws Exception {
+    public void fetchSubscriberDetails_withAttachedViewAndSuccessfulProfileAndRepositoryCalls_ShouldRenderProfileAndRepositories() throws Exception {
         Profile mockProfile = new Profile("mockLogin", "www.mockulr.com", "www.mockurl.com", "mockName", "mockCompany", "mockLocation", 1, 1, 1);
         List<Repository> mockUserRepositoryList = Arrays.asList(new Repository("mockName", "www.mockUrl.com"));
         when(profileInteractor.execute(anyString())).thenReturn(Observable.just(mockProfile));
         when(repositoriesInteractor.execute(anyString())).thenReturn(Observable.just(mockUserRepositoryList));
         presenter.fetchSubscriberDetails(anyString());
         verify(mockView, times(2)).render(any(SubscriberDetailsState.class));
-        verify(repositoriesInteractor, times(1)).execute(anyString());
+        verify(repositoriesInteractor).execute(anyString());
     }
 }
