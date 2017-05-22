@@ -154,7 +154,7 @@ public class SubscriberDetailsPresenterTest {
      * @throws Exception
      */
     @Test
-    public void fetchSubscriberDetails_withAttachedViewAndSuccessfulProfileAndRepositoryCalls_ShouldRenderProfileAndRepositories() throws Exception {
+    public void fetchSubscriberDetails_withViewAttachedAndSuccessfulProfileAndRepositoryCalls_ShouldRenderProfileAndRepositories() throws Exception {
         Profile mockProfile = new Profile("mockLogin", "www.mockulr.com", "www.mockurl.com", "mockName", "mockCompany", "mockLocation", 1, 1, 1);
         List<Repository> mockUserRepositoryList = Arrays.asList(new Repository("mockName", "www.mockUrl.com"));
         when(profileInteractor.execute(anyString())).thenReturn(Observable.just(mockProfile));
