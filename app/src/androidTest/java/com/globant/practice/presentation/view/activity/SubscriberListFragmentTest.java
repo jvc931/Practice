@@ -29,7 +29,7 @@ public class SubscriberListFragmentTest {
         recyclerView.perform(actionOnItemAtPosition(0, click()));
 
         ViewInteraction appCompatImageButton = onView(
-                allOf(withContentDescription("Navigate up"),
+                allOf(withContentDescription(R.string.abc_action_bar_up_description),
                         withParent(allOf(withId(R.id.action_bar),
                                 withParent(withId(R.id.action_bar_container)))),
                         isDisplayed()));
