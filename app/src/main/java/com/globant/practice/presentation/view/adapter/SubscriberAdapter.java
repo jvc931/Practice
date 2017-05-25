@@ -122,7 +122,7 @@ public class SubscriberAdapter extends RecyclerView.Adapter<SubscriberAdapter.Su
         public void blindSubscriberList(final User user) {
             login.setText(user.getLogin());
             this.user = user;
-            Glide.with(context).load(user.getAvatarUrl()).centerCrop()
+            Glide.with(context).load(user.getAvatarUrl())
                     .placeholder(R.drawable.ic_account_circle_black_24dp).crossFade().into(avatar);
         }
 
