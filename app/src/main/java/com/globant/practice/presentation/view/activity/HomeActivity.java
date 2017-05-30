@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void render() {
-        setFragment(SubscriberListFragment.newInstance());
+        setFragment(SubscriberListFragment.newInstance(), true);
     }
 
     /**
@@ -67,17 +67,23 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void subscriberSelected(String login) {
-        setFragment(SubscriberDetailsFragment.newInstance(login));
+        setFragment(SubscriberDetailsFragment.newInstance(login), false);
     }
 
     /**
      * Change the showing fragment
      *
-     * @param fragment fragment instance
+     * @param fragment      fragment instance
+     * @param firstFragment true if is the first fragment to show else false.
      */
-    private void setFragment(Fragment fragment) {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.content, fragment).addToBackStack(null).commit();
+    private void setFragment(Fragment fragment, boolean firstFragment) {
+        if (firstFragment) {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content, fragment).commit();
+        } else {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content, fragment).addToBackStack(null).commit();
+        }
     }
 
     /**
@@ -88,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void nameSelected(String htmlUrl, String detailType) {
-        setFragment(WebClientFragment.newInstance(htmlUrl, detailType));
+        setFragment(WebClientFragment.newInstance(htmlUrl, detailType), false);
     }
 
     /**
@@ -99,15 +105,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView, Subscri
      */
     @Override
     public void repositorySelected(String htmlUrl, String detailType) {
-        setFragment(WebClientFragment.newInstance(htmlUrl, detailType));
+        setFragment(WebClientFragment.newInstance(htmlUrl, detailType), false);
     }
 
     /**
-     * Listens the back key to come back the fragment stack
+     * Listens the back key to come back the fragment stack and informs to the presenter that the
+     * application will go to background by back key pressed
      */
     @Override
     public void onBackPressed() {
         if (!isFragmentComingBack()) {
+            presenter.goToBackgroundByBackKeyPressed();
             super.onBackPressed();
         }
     }

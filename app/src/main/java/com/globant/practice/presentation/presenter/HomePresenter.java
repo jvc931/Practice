@@ -31,4 +31,11 @@ public class HomePresenter extends BasePresenter<HomeView> {
             homeViewState.setFirstTimeToRun(false);
         }
     }
+
+    /**
+     * Sets the firstTimeToRun boolean value true because the application go to background
+     */
+    public void goToBackgroundByBackKeyPressed() {
+        homeViewState.setFirstTimeToRun(true);
+    }
 }

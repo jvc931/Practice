@@ -1,5 +1,6 @@
 package com.globant.practice.presentation.presenter;
 
+import android.text.TextUtils;
 import com.globant.practice.domain.interactor.FetchSubscriberProfileInteractor;
 import com.globant.practice.domain.interactor.FetchSubscriberRepositoriesInteractor;
 import com.globant.practice.domain.model.Profile;
@@ -120,8 +121,8 @@ public class SubscriberDetailsPresenter extends BasePresenter<SubscriberDetailsV
      * @param login subscriber login
      */
     public void fetchSubscriberDetails(String login) {
-        subscriberDetailsState.setLogin(login);
-        if (!subscriberDetailsState.isLoading() && subscriberDetailsState.getProfile() == null && subscriberDetailsState.getSubscriberRepositories() == null) {
+        if (!subscriberDetailsState.isLoading() && (TextUtils.isEmpty(subscriberDetailsState.getLogin()) || !subscriberDetailsState.getLogin().equals(login))) {
+            subscriberDetailsState.setLogin(login);
             subscriberDetailsState.setError(null);
             subscriberDetailsState.setProfile(null);
             subscriberDetailsState.setSubscriberRepositories(null);
