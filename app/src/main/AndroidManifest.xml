@@ -21,6 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.view.activity.HomeActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"></activity>
+            android:configChanges="orientation|screenSize"></activity>
     </application>
 </manifest>
